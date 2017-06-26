@@ -97,8 +97,10 @@ public class Spgestion  implements java.io.Serializable {
         this.sptransfpersonals = sptransfpersonals;
     }
 
-
-
+    @Override
+    public String toString(){
+        return "[codigo => " + this.codigo +", fechaIni => " + this.fechaini +  ", fechaFin => " + this.fechafin + "]";
+    }
 
 }
 

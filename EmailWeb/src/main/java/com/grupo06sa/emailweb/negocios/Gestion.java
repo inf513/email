@@ -31,44 +31,48 @@ public class Gestion {
         
         return data;
     }
+    /**
+     * Valida el formato de las fechas de la gestion
+     * @param trama
+     * @return 
+     */
+    public String validarFormatoFecha(String trama){
+        String data = "";
+        trama = trama.replace("[", "");
+        trama = trama.replace("]", "");
+        String[] datos = trama.split(",");
+        if(datos.length != 4) 
+            data += "No existen campos completas ";
+        
+        if(!FuncionesComunes.esFecha(datos[2]))
+            data += "Formato de fechas Inicial invalida ";
+        
+        if(!FuncionesComunes.esFecha(datos[3]))
+            data += "Formato de fechas Final invalida ";
+        
+        return data;
+    }
     public Spgestion getParser(String data){
         Spgestion gestion = null;
         //[id, codigo, descripcion]
         data = data.replace("[", "");
         data = data.replace("]", "");
         String[] datos = data.split(",");
-        
-        if(datos.length != 3) return gestion;
-        // id, codigo, fechaini, fechafin, estado
+        if(datos.length != 4) return gestion;
+        // id, codigo, fechaini, fechafin
         if(FuncionesComunes.esNumero(datos[0])){
             gestion = new Spgestion();
-            gestion.setPkgestion(Integer.valueOf(datos[0]));
-            
+            gestion.setPkgestion(Integer.valueOf(datos[0]));           
             if(datos[1].length() > 0){
-                gestion.setCodigo(datos[1]);
-                
+                gestion.setCodigo(datos[1]);                
                 if(datos[2].length() > 0){                    
-                    try{
-                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MMM-dd");
-                        gestion.setFechaini(formatter.parse(datos[2]));
+                        gestion.setFechaini(FuncionesComunes.getFecha(datos[2]));
                         if(datos[3].length() > 0){
-                            gestion.setFechaini(formatter.parse(datos[3]));
+                            gestion.setFechafin(FuncionesComunes.getFecha(datos[3]));
                             gestion.setEstado('T');
-                        }else{
-                            gestion = null;
                         }
-                    }catch(ParseException e){
-                        System.out.println("error [Gestion.getParser]" + e.getMessage() );
-                        gestion = null;
-                    }
-                }else{
-                    gestion = null;
                 }
-            }else{
-                gestion = null;
             }
-        }else{
-            gestion = null;
         }
         return gestion;
     }

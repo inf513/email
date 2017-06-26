@@ -6,6 +6,10 @@
 
 package com.grupo06sa.emailweb.negocios;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * 
  * @author Alex Limbert Yalusqui <limbertyalusqui@gmail.com>
@@ -19,5 +23,36 @@ public class FuncionesComunes {
             } catch (NumberFormatException nfe){
                     return false;
             }
+    }
+    /**
+     * Devuelve true si la cadena tiene formato valido para fecha, falso en otro caso
+     * @param cadena fecha en formato cadena
+     * @return 
+     */
+    public static boolean esFecha(String cadena){
+        try{
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            //SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+            Date fecha = formatter.parse(cadena);
+            return true;
+        }catch(ParseException e){
+            System.out.println("fecha : " + cadena);
+            return false;
+        }
+    }
+    /**
+     * Devuelve una fecha a partir de una cadena
+     * @param fecha Fecha en cadena
+     * @return 
+     */
+    public static Date getFecha(String fecha){
+        try{
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            //SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+            Date f1 = formatter.parse(fecha);
+            return f1;
+        }catch(ParseException e){
+            return new Date();
+        }
     }
 }

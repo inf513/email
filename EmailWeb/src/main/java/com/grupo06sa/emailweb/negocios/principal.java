@@ -15,8 +15,9 @@ public class principal {
     public static void main(String[] main){
         try {
             Analizador a = new Analizador();
-            String trama = "CON|CARGO|[2]";
-            //[desc: [codigo => DA1, descripcion => CARGO ULTIMO]]
+            
+            //String trama = "UPD|GESTION|[2,18,2018-01-01,2018-12-31]";
+            String trama = "CON|GESTION|[2]";
             Respuesta r = a.analizarTrama(trama);
             System.out.println(r.toString());
             System.exit(0);

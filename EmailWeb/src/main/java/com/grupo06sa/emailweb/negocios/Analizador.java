@@ -65,10 +65,10 @@ public class Analizador {
                 respuesta = Negocio.adicionarCargo(data);
                 break;
             case COMANDO.TB_GESTION:
-                
+                respuesta = Negocio.adicionarGestion(data);
                 break;
             case COMANDO.TB_ORDEN:
-                
+                respuesta = Negocio.adicionarOrdenTrabajo(data);
                 break;
             case COMANDO.TB_ACTIVIDAD:
                 
@@ -92,7 +92,7 @@ public class Analizador {
                 respuesta = Negocio.eliminarCargo(data);
                 break;
             case COMANDO.TB_GESTION:
-                
+                respuesta = Negocio.eliminarGestion(data);
                 break;
             case COMANDO.TB_ORDEN:
                 
@@ -118,8 +118,8 @@ public class Analizador {
             case COMANDO.TB_CARGO:
                 respuesta = Negocio.actualizarCargo(data);
                 break;
-            case COMANDO.TB_GESTION:
-                
+            case COMANDO.TB_GESTION:                
+                respuesta = Negocio.actualizarGestion(data);
                 break;
             case COMANDO.TB_ORDEN:
                 
@@ -146,7 +146,7 @@ public class Analizador {
                 respuesta = Negocio.consultarCargo(data);
                 break;
             case COMANDO.TB_GESTION:
-                
+                respuesta = Negocio.consultarGestion(data);
                 break;
             case COMANDO.TB_ORDEN:
                 

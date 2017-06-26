@@ -23,6 +23,12 @@
             <artifactId>hibernate-jpa-2.1-api</artifactId>
             <version>1.0.0.Final</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4</version>
+        </dependency>        
         <dependency>
             <groupId>unknown.binary</groupId>
             <artifactId>postgresql-9.2-1002.jdbc4</artifactId>
