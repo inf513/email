@@ -6,8 +6,9 @@
 
 package com.grupo06sa.emailweb.negocios;
 
-import com.grupo06sa.emailweb.modelos.Spcargo;
+import java.text.SimpleDateFormat;
 import com.grupo06sa.emailweb.modelos.Spgestion;
+import java.text.ParseException;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,28 +23,82 @@ public class Gestion {
     public Gestion(){
         
     }
-     /**
+    public String validarGestion(Spgestion gestion){
+        String data = "";
+        if(gestion.getCodigo().length() > 2){
+            data += "Codigo de cargo maximo 2 caracteres";
+        }
+        
+        return data;
+    }
+    public Spgestion getParser(String data){
+        Spgestion gestion = null;
+        //[id, codigo, descripcion]
+        data = data.replace("[", "");
+        data = data.replace("]", "");
+        String[] datos = data.split(",");
+        
+        if(datos.length != 3) return gestion;
+        // id, codigo, fechaini, fechafin, estado
+        if(FuncionesComunes.esNumero(datos[0])){
+            gestion = new Spgestion();
+            gestion.setPkgestion(Integer.valueOf(datos[0]));
+            
+            if(datos[1].length() > 0){
+                gestion.setCodigo(datos[1]);
+                
+                if(datos[2].length() > 0){                    
+                    try{
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MMM-dd");
+                        gestion.setFechaini(formatter.parse(datos[2]));
+                        if(datos[3].length() > 0){
+                            gestion.setFechaini(formatter.parse(datos[3]));
+                            gestion.setEstado('T');
+                        }else{
+                            gestion = null;
+                        }
+                    }catch(ParseException e){
+                        System.out.println("error [Gestion.getParser]" + e.getMessage() );
+                        gestion = null;
+                    }
+                }else{
+                    gestion = null;
+                }
+            }else{
+                gestion = null;
+            }
+        }else{
+            gestion = null;
+        }
+        return gestion;
+    }
+    /**
      * adiciona una gestion en la base de datos
-     * @param gestion Modelo de gestion
+     * @param gestion  Modelo de gestion
+     * @return 
      */
-    public void adicionar(Spcargo gestion){
+    public boolean adicionar(Spgestion gestion){
         try {
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session session;
             session = sf.openSession();
             Transaction tx = session.beginTransaction();
-            session.save(gestion);
+            session.save(gestion);          
             tx.commit();
             session.close();
+            return true;
         } catch (HibernateException e) {
-            System.out.println("Error [Gestion.adicionar]: " + e.getMessage());
+            Throwable cause = e.getCause();
+            System.out.println("Error [gestion.adicionar]: " + cause.getMessage());
+            return false;          
         }
     }
     /**
      * Actualiza una gestion
      * @param gestion Los nuevos datos a modificar
+     * @return 
      */
-    public void actualizar(Spgestion gestion){
+    public boolean actualizar(Spgestion gestion){
         try {
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session session;
@@ -52,19 +107,23 @@ public class Gestion {
             session.update(gestion);
             tx.commit();
             session.close();
+            return true;
         } catch (HibernateException e) {
-            System.out.println("Error [Gestion.actualizar]: " + e.getMessage());
+            Throwable cause = e.getCause();
+            System.out.println("Error [gestion.actualizar]: " + cause.getMessage());            
+            return false;          
+
         }
     }
     /**
-     * elimina una gestion de acuerdo a su identificador
-     * @param id Identificador primario de gestion
-     * @return True si se elimino correctamente , en otro caso falso
+     * elimina un gestion de acuerdo a su identificador
+     * @param id Identificador primario de cargo
+     * @return True si se elimino correctamente, en otro caso falso
      */
     public boolean eliminar(int id){
         Spgestion gestion = null;
         try {
-            gestion = this.consultarPorId(id);
+            gestion = Gestion.consultarPorId(id);
             if(gestion !=null ){
                 SessionFactory factory = HibernateUtil.getSessionFactory();
                 Session session = factory.openSession();
@@ -77,7 +136,8 @@ public class Gestion {
                 return false;
             }
         } catch (HibernateException e) {
-            System.out.println("Error [Gestion.eliminar]: " + e.getMessage());
+            Throwable cause = e.getCause();
+            System.out.println("Error [Gestion.eliminar]: " + cause.getMessage());            
             return false;
         }
     }
@@ -86,7 +146,7 @@ public class Gestion {
      * @param id Identificador primario de base de datos
      * @return Modelo de datos
      */
-    public Spgestion consultarPorId(int id){
+    public static Spgestion consultarPorId(int id){
         Spgestion gestion = null;
         try {
             SessionFactory factory = HibernateUtil.getSessionFactory();
@@ -96,8 +156,10 @@ public class Gestion {
             tx.commit();
             session.close();
         } catch (HibernateException e) {
-            System.out.println("Error [Gestion.consultarPorId]: " + e.getMessage());
+            Throwable cause = e.getCause();            
+            System.out.println("Error [Gestion.consultarPorId]: " + cause.getMessage());            
         }
         return gestion;
     }
+    
 }

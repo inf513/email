@@ -19,6 +19,17 @@ public class Cargo{
 
     public Cargo(){};
     
+    public String validarCargo(Spcargo cargo){
+        String data = "";
+        if(cargo.getCodigo().length() > 3){
+            data += "Codigo de cargo maximo 3 caracteres";
+        }
+        if(cargo.getDescripcion().length() > 50){
+            data += "Codigo de cargo maximo 50 caracteres";
+        }
+        
+        return data;
+    }
     public Spcargo getParser(String data){
         Spcargo cargo = null;
         //[id, codigo, descripcion]
@@ -64,13 +75,15 @@ public class Cargo{
             session.close();
             return true;
         } catch (HibernateException e) {
-            System.out.println("Error [Cargo.adicionar]: " + e.getMessage());
-            return false;
+            Throwable cause = e.getCause();
+            System.out.println("Error [Cargo.adicionar]: " + cause.getMessage());
+            return false;          
         }
     }
     /**
      * Actualiza un cargo
      * @param cargo Los nuevos datos a modificar
+     * @return 
      */
     public boolean actualizar(Spcargo cargo){
         try {
@@ -83,8 +96,10 @@ public class Cargo{
             session.close();
             return true;
         } catch (HibernateException e) {
-            System.out.println("Error [Cargo.actualizar]: " + e.getMessage());
-            return false;
+            Throwable cause = e.getCause();
+            System.out.println("Error [Cargo.actualizar]: " + cause.getMessage());            
+            return false;          
+
         }
     }
     /**
@@ -108,7 +123,8 @@ public class Cargo{
                 return false;
             }
         } catch (HibernateException e) {
-            System.out.println("Error [Cargo.eliminar]: " + e.getMessage());
+            Throwable cause = e.getCause();
+            System.out.println("Error [Cargo.eliminar]: " + cause.getMessage());            
             return false;
         }
     }
@@ -127,7 +143,8 @@ public class Cargo{
             tx.commit();
             session.close();
         } catch (HibernateException e) {
-            System.out.println("Error [Cargo.consultarPorId]: " + e.getMessage());
+            Throwable cause = e.getCause();            
+            System.out.println("Error [Cargo.consultarPorId]: " + cause.getMessage());            
         }
         return cargo;
     }

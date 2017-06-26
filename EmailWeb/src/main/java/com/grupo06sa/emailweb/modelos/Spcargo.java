@@ -19,7 +19,6 @@ public class Spcargo  implements java.io.Serializable {
     public Spcargo() {
     }
 
-	
     public Spcargo(int pkcargo, String codigo, String descripcion) {
         this.pkcargo = pkcargo;
         this.codigo = codigo;
@@ -61,9 +60,10 @@ public class Spcargo  implements java.io.Serializable {
         this.sppersonals = sppersonals;
     }
 
-
-
-
+    @Override
+    public String toString(){
+        return "[codigo => " + this.codigo +", descripcion => " + this.descripcion +  "]";
+    }
 }
 
 

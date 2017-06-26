@@ -38,7 +38,13 @@ public class COMANDO {
      */
     public final static String MS_LOGIN = "USUARIO Y/O CONTRASEÑA NO VALIDOS";    
     /**
-     * CUANDO LA TRAMA NO CUMPLE LAS VALIDACIONES CORRECTAMENTE
+     * CUANDO LA TRAMA NO TIENE LOS ATRIBUTOS NECESARIOS
      */
     public final static String MS_VALID = "ERROR DE VALIDACION";
+    /**
+     * Mensaje cuando el comando de llegada no es valido
+     */
+    public final static String MS_COMAN = "COMANDO NO VALIDO";
+    
+    public final static String MS_TABLA = "TABLA NO ENCONTRADA";
 }

@@ -13,23 +13,102 @@ import com.grupo06sa.emailweb.modelos.Spcargo;
  * @author Alex Limbert Yalusqui <limbertyalusqui@gmail.com>
  */
 public class Negocio {
+    /**
+     * Metodo que adiciona un cargo
+     * @param data
+     * @return 
+     */
     public static Respuesta adicionarCargo(String data){
         Respuesta respuesta = null;        
         Cargo cargo = new Cargo();
         Spcargo modelo = cargo.getParser(data);
         if(modelo != null){
-            if(cargo.adicionar(modelo)){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkcargo()));
+            String value = cargo.validarCargo(modelo);
+            if(value.length()<=0){
+                if(cargo.adicionar(modelo)){
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkcargo()));
+                }
+                else{
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "");
+                }                                
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_VALID, value);
             }
-            else{
-                respuesta = new Respuesta(COMANDO.MS_ERROR, "");
-            }                
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
         }
         
         return respuesta;
     }
+    /**
+     * Metodo que actualiza el cargo
+     * @param data cadena con atributos
+     * @return 
+     */
+    public static Respuesta actualizarCargo(String data){
+        Respuesta respuesta = null;        
+        Cargo cargo = new Cargo();
+        Spcargo modelo = cargo.getParser(data);
+        if(modelo != null){
+            String value = cargo.validarCargo(modelo);
+            if(value.length()<=0){
+                if(cargo.actualizar(modelo)){
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkcargo()));
+                }
+                else{
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "");
+                }                                
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+        }
+        
+        return respuesta;
+    }
+    
+    /**
+     * Elimina un cargo y devuelve una respuesta
+     * @param data cadena con los datos a eliminar
+     * @return 
+     */
+    public static Respuesta eliminarCargo(String data){
+        Respuesta respuesta = null;
+        Cargo cargo = new Cargo();
+        //[1]
+        data = data.replace("[", "");
+        data = data.replace("]", "");
+        if(FuncionesComunes.esNumero(data)){
+            if(cargo.eliminar(Integer.parseInt(data))){
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "");
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_ERROR, "");
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "Es necesario un numero");
+        }
+        return respuesta;
+    }
+    public static Respuesta consultarCargo(String data){
+        Respuesta respuesta = null;
+        Cargo cargo = new Cargo();
+        //[1]
+        data = data.replace("[", "");
+        data = data.replace("]", "");
+        if(FuncionesComunes.esNumero(data)){                       
+            Spcargo modelo = cargo.consultarPorId(Integer.parseInt(data));
+            if(modelo != null){
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, modelo.toString());
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "No se encontro cargo");
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "Es necesario un numero");
+        }
+        return respuesta;
+    }    
+
     public static Respuesta adicionarGestion(String data){
         return null;
     }
