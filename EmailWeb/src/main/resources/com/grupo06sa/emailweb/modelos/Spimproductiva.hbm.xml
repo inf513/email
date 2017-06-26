@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-06-2017 07:52:37 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.grupo06sa.emailweb.modelos.Spimproductiva" table="spimproductiva" schema="public" optimistic-lock="version">
+        <id name="pkimproductiva" type="int">
+            <column name="pkimproductiva" />
+            <generator class="assigned" />
+        </id>
+        <property name="codigo" type="string">
+            <column name="codigo" length="4" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="50" />
+        </property>
+        <set name="spdetimproductivas" table="spdetimproductiva" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkimproductiva" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Spdetimproductiva" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-06-2017 07:52:37 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.grupo06sa.emailweb.modelos.Spordentrabajo" table="spordentrabajo" schema="public" optimistic-lock="version">
+        <id name="pkordentrabajo" type="int">
+            <column name="pkordentrabajo" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="spgestion" class="com.grupo06sa.emailweb.modelos.Spgestion" fetch="select">
+            <column name="fkgestion" not-null="true" />
+        </many-to-one>
+        <property name="codigo" type="string">
+            <column name="codigo" length="3" not-null="true" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" length="50" />
+        </property>
+        <property name="supervisor" type="string">
+            <column name="supervisor" length="50" />
+        </property>
+        <property name="areaestimada" type="big_decimal">
+            <column name="areaestimada" precision="10" />
+        </property>
+        <property name="estado" type="java.lang.Character">
+            <column name="estado" length="1" />
+        </property>
+        <property name="data" type="string">
+            <column name="data" length="6" />
+        </property>
+        <set name="spequipos" table="spequipo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkordentrabajo" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Spequipo" />
+        </set>
+        <set name="sppartediarios" table="sppartediario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkordentrabajo" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Sppartediario" />
+        </set>
+        <set name="sptransfpersonalsForFkordendestino" table="sptransfpersonal" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkordendestino" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Sptransfpersonal" />
+        </set>
+        <set name="spactividads" table="spactividad" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkordentrabajo" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Spactividad" />
+        </set>
+        <set name="sppoligonos" table="sppoligono" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkordentrabajo" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Sppoligono" />
+        </set>
+        <set name="spitemobras" table="spitemobra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkordentrabajo" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Spitemobra" />
+        </set>
+        <set name="sppersonals" table="sppersonal" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkordentrabajo" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Sppersonal" />
+        </set>
+        <set name="sptransfpersonalsForFkordenorigen" table="sptransfpersonal" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkordenorigen" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Sptransfpersonal" />
+        </set>
+        <set name="spturnos" table="spturno" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkordentrabajo" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Spturno" />
+        </set>
+        <set name="sptransfequipos" table="sptransfequipo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkordendestino" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Sptransfequipo" />
+        </set>
+    </class>
+</hibernate-mapping>

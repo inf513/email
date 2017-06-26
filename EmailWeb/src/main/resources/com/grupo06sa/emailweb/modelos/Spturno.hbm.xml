@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-06-2017 07:52:37 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.grupo06sa.emailweb.modelos.Spturno" table="spturno" schema="public" optimistic-lock="version">
+        <comment>Esto se define dentro de cada obra, algunas pueden tener mas de 1 turno cada turno esta dividido en horas que se ejecutaran</comment>
+        <id name="pkturno" type="int">
+            <column name="pkturno" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="spordentrabajo" class="com.grupo06sa.emailweb.modelos.Spordentrabajo" fetch="select">
+            <column name="fkordentrabajo" />
+        </many-to-one>
+        <property name="codigo" type="string">
+            <column name="codigo" length="3" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="25" />
+        </property>
+        <set name="sppartediarios" table="sppartediario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkturno" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Sppartediario" />
+        </set>
+    </class>
+</hibernate-mapping>

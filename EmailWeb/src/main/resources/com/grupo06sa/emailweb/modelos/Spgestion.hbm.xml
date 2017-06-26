@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-06-2017 07:52:37 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.grupo06sa.emailweb.modelos.Spgestion" table="spgestion" schema="public" optimistic-lock="version">
+        <id name="pkgestion" type="int">
+            <column name="pkgestion" />
+            <generator class="assigned" />
+        </id>
+        <property name="codigo" type="string">
+            <column name="codigo" length="2" not-null="true" />
+        </property>
+        <property name="fechaini" type="timestamp">
+            <column name="fechaini" length="29" />
+        </property>
+        <property name="fechafin" type="timestamp">
+            <column name="fechafin" length="29" />
+        </property>
+        <property name="estado" type="java.lang.Character">
+            <column name="estado" length="1" />
+        </property>
+        <set name="sptransfequipos" table="sptransfequipo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkgestion" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Sptransfequipo" />
+        </set>
+        <set name="spordentrabajos" table="spordentrabajo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkgestion" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Spordentrabajo" />
+        </set>
+        <set name="sptransfpersonals" table="sptransfpersonal" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkgestion" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Sptransfpersonal" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-06-2017 07:52:37 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.grupo06sa.emailweb.modelos.Spdetproductiva" table="spdetproductiva" schema="public" optimistic-lock="version">
+        <id name="pkdetpartediario" type="int">
+            <column name="pkdetpartediario" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="spitemobra" class="com.grupo06sa.emailweb.modelos.Spitemobra" fetch="select">
+            <column name="fkitemobra" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sppartediario" class="com.grupo06sa.emailweb.modelos.Sppartediario" fetch="select">
+            <column name="fkpartediario" not-null="true" />
+        </many-to-one>
+        <property name="nroitem" type="short">
+            <column name="nroitem" not-null="true" />
+        </property>
+        <property name="grupo" type="short">
+            <column name="grupo" not-null="true" />
+        </property>
+        <property name="hmtoini" type="big_decimal">
+            <column name="hmtoini" precision="10" />
+        </property>
+        <property name="hmtofin" type="big_decimal">
+            <column name="hmtofin" precision="10" />
+        </property>
+        <property name="area" type="big_decimal">
+            <column name="area" precision="10" />
+        </property>
+    </class>
+</hibernate-mapping>

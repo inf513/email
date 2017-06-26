@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-06-2017 07:52:37 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.grupo06sa.emailweb.modelos.Sppersonal" table="sppersonal" schema="public" optimistic-lock="version">
+        <id name="pkpersonal" type="int">
+            <column name="pkpersonal" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="spcargo" class="com.grupo06sa.emailweb.modelos.Spcargo" fetch="select">
+            <column name="fkcargo" />
+        </many-to-one>
+        <many-to-one name="spordentrabajo" class="com.grupo06sa.emailweb.modelos.Spordentrabajo" fetch="select">
+            <column name="fkordentrabajo" />
+        </many-to-one>
+        <property name="fechaingreso" type="timestamp">
+            <column name="fechaingreso" length="29" />
+        </property>
+        <property name="nombrecomp" type="string">
+            <column name="nombrecomp" length="50" />
+        </property>
+        <property name="apellidos" type="string">
+            <column name="apellidos" length="50" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="50" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="telefono" length="50" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="25" />
+        </property>
+        <property name="ci" type="string">
+            <column name="ci" length="25" />
+        </property>
+        <property name="fechanac" type="timestamp">
+            <column name="fechanac" length="29" />
+        </property>
+        <set name="sppartediariosForFkoperador" table="sppartediario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkoperador" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Sppartediario" />
+        </set>
+        <set name="sppartediariosForFkayudante" table="sppartediario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkayudante" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Sppartediario" />
+        </set>
+        <set name="spdettransfpersonals" table="spdettransfpersonal" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkpersonal" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Spdettransfpersonal" />
+        </set>
+    </class>
+</hibernate-mapping>

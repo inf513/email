@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-06-2017 07:52:37 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.grupo06sa.emailweb.modelos.Spdettransfpersonal" table="spdettransfpersonal" schema="public" optimistic-lock="version">
+        <id name="pkdettransfpersonal" type="int">
+            <column name="pkdettransfpersonal" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="sppersonal" class="com.grupo06sa.emailweb.modelos.Sppersonal" fetch="select">
+            <column name="fkpersonal" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sptransfpersonal" class="com.grupo06sa.emailweb.modelos.Sptransfpersonal" fetch="select">
+            <column name="fktransfpersonal" not-null="true" />
+        </many-to-one>
+        <property name="item" type="java.lang.Integer">
+            <column name="item" />
+        </property>
+        <property name="observacion" type="string">
+            <column name="observacion" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>

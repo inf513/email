@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://200.87.51.3:5432/db_grupo06sa</property>
+    <property name="hibernate.connection.username">grupo06sa</property>
+    <property name="hibernate.connection.password">grupo06grupo06</property>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Spequipo.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Spdetproductiva.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Spimproductiva.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Sppartediario.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Spdettransfpersonal.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Sppersonal.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Spordentrabajo.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Sppoligono.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Sptransfequipo.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Spactividad.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Spturno.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Spdetimproductiva.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Speqtipo.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Speqmodelo.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Spgestion.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Spdettransfequipo.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Spitemobra.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Spcargo.hbm.xml"/>
+    <mapping resource="com/grupo06sa/emailweb/modelos/Sptransfpersonal.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

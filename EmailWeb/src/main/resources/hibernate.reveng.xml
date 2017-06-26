@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="db_grupo06sa" match-schema="public"/>
+  <table-filter match-name="speqmodelo"/>
+  <table-filter match-name="spcargo"/>
+  <table-filter match-name="sptransfpersonal"/>
+  <table-filter match-name="speqtipo"/>
+  <table-filter match-name="spimproductiva"/>
+  <table-filter match-name="spordentrabajo"/>
+  <table-filter match-name="spitemobra"/>
+  <table-filter match-name="spequipo"/>
+  <table-filter match-name="spturno"/>
+  <table-filter match-name="sppartediario"/>
+  <table-filter match-name="sppersonal"/>
+  <table-filter match-name="sptransfequipo"/>
+  <table-filter match-name="sppoligono"/>
+  <table-filter match-name="spdetproductiva"/>
+  <table-filter match-name="spdettransfpersonal"/>
+  <table-filter match-name="spactividad"/>
+  <table-filter match-name="spdetimproductiva"/>
+  <table-filter match-name="spgestion"/>
+  <table-filter match-name="spdettransfequipo"/>
+</hibernate-reverse-engineering>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-06-2017 07:52:37 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.grupo06sa.emailweb.modelos.Spequipo" table="spequipo" schema="public" optimistic-lock="version">
+        <id name="pkequipo" type="int">
+            <column name="pkequipo" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="speqmodelo" class="com.grupo06sa.emailweb.modelos.Speqmodelo" fetch="select">
+            <column name="fkmodelo" not-null="true" />
+        </many-to-one>
+        <many-to-one name="speqtipo" class="com.grupo06sa.emailweb.modelos.Speqtipo" fetch="select">
+            <column name="fktipoequipo" not-null="true" />
+        </many-to-one>
+        <many-to-one name="spordentrabajo" class="com.grupo06sa.emailweb.modelos.Spordentrabajo" fetch="select">
+            <column name="fkordentrabajo" not-null="true" />
+        </many-to-one>
+        <property name="codigo" type="string">
+            <column name="codigo" length="9" not-null="true" />
+        </property>
+        <property name="fktipocontrato" type="char">
+            <column name="fktipocontrato" length="1" not-null="true" />
+        </property>
+        <property name="fechaingreso" type="timestamp">
+            <column name="fechaingreso" length="29" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="50" />
+        </property>
+        <set name="sppartediarios" table="sppartediario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkequipo" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Sppartediario" />
+        </set>
+        <set name="spdettransfequipos" table="spdettransfequipo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkequipo" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Spdettransfequipo" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-06-2017 07:52:37 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.grupo06sa.emailweb.modelos.Spdetimproductiva" table="spdetimproductiva" schema="public" optimistic-lock="version">
+        <id name="pkdetimproductiva" type="int">
+            <column name="pkdetimproductiva" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="spimproductiva" class="com.grupo06sa.emailweb.modelos.Spimproductiva" fetch="select">
+            <column name="fkimproductiva" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sppartediario" class="com.grupo06sa.emailweb.modelos.Sppartediario" fetch="select">
+            <column name="fkpartediario" not-null="true" />
+        </many-to-one>
+        <property name="nroitem" type="java.lang.Integer">
+            <column name="nroitem" />
+        </property>
+        <property name="hrs" type="big_decimal">
+            <column name="hrs" precision="10" />
+        </property>
+    </class>
+</hibernate-mapping>

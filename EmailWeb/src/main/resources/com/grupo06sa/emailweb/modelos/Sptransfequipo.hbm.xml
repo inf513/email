@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-06-2017 07:52:37 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.grupo06sa.emailweb.modelos.Sptransfequipo" table="sptransfequipo" schema="public" optimistic-lock="version">
+        <id name="pktransfequipo" type="int">
+            <column name="pktransfequipo" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="spgestion" class="com.grupo06sa.emailweb.modelos.Spgestion" fetch="select">
+            <column name="fkgestion" not-null="true" />
+        </many-to-one>
+        <many-to-one name="spordentrabajo" class="com.grupo06sa.emailweb.modelos.Spordentrabajo" fetch="select">
+            <column name="fkordendestino" not-null="true" />
+        </many-to-one>
+        <property name="codigo" type="string">
+            <column name="codigo" length="4" not-null="true" />
+        </property>
+        <property name="fecha" type="timestamp">
+            <column name="fecha" length="29" />
+        </property>
+        <property name="fkordenorigen" type="int">
+            <column name="fkordenorigen" not-null="true" />
+        </property>
+        <property name="observacion" type="string">
+            <column name="observacion" length="50" />
+        </property>
+        <property name="data" type="string">
+            <column name="data" length="7" not-null="true" />
+        </property>
+        <property name="estado" type="char">
+            <column name="estado" length="1" not-null="true" />
+        </property>
+        <set name="spdettransfequipos" table="spdettransfequipo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fktransfequipo" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Spdettransfequipo" />
+        </set>
+    </class>
+</hibernate-mapping>

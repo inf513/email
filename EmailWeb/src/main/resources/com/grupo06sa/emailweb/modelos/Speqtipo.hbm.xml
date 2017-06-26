@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-06-2017 07:52:37 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.grupo06sa.emailweb.modelos.Speqtipo" table="speqtipo" schema="public" optimistic-lock="version">
+        <id name="pkeqtipo" type="int">
+            <column name="pkeqtipo" />
+            <generator class="assigned" />
+        </id>
+        <property name="codigo" type="string">
+            <column name="codigo" length="2" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="25" />
+        </property>
+        <set name="speqmodelos" table="speqmodelo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fkeqtipo" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Speqmodelo" />
+        </set>
+        <set name="spequipos" table="spequipo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fktipoequipo" not-null="true" />
+            </key>
+            <one-to-many class="com.grupo06sa.emailweb.modelos.Spequipo" />
+        </set>
+    </class>
+</hibernate-mapping>
