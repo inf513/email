@@ -19,29 +19,60 @@ public class Cargo{
 
     public Cargo(){};
     
+    public Spcargo getParser(String data){
+        Spcargo cargo = null;
+        //[id, codigo, descripcion]
+        data = data.replace("[", "");
+        data = data.replace("]", "");
+        String[] datos = data.split(",");        
+        
+        if(datos.length != 3) return cargo;
+        
+        if(FuncionesComunes.esNumero(datos[0])){
+            cargo = new Spcargo();
+            cargo.setPkcargo(Integer.valueOf(datos[0]));
+            
+            if(datos[1].length() > 0){
+                cargo.setCodigo(datos[1]);
+                
+                if(datos[2].length()>0){
+                    cargo.setDescripcion(datos[2]);
+                }else{
+                    cargo = null;
+                }
+            }else{
+                cargo = null;
+            }
+        }else{
+            cargo = null;
+        }
+        return cargo;
+    }
     /**
      * adiciona un cargo en la base de datos
      * @param cargo Modelo de cargo
+     * @return 
      */
-    public void adicionar(Spcargo cargo){
+    public boolean adicionar(Spcargo cargo){
         try {
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session session;
             session = sf.openSession();
             Transaction tx = session.beginTransaction();
-            session.save(cargo);
+            session.save(cargo);          
             tx.commit();
             session.close();
+            return true;
         } catch (HibernateException e) {
-            System.out.println("erorrrr:");
-            System.out.println("erro : " + e.getMessage());
+            System.out.println("Error [Cargo.adicionar]: " + e.getMessage());
+            return false;
         }
     }
     /**
      * Actualiza un cargo
      * @param cargo Los nuevos datos a modificar
      */
-    public void actualizar(Spcargo cargo){
+    public boolean actualizar(Spcargo cargo){
         try {
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session session;
@@ -50,9 +81,10 @@ public class Cargo{
             session.update(cargo);
             tx.commit();
             session.close();
+            return true;
         } catch (HibernateException e) {
-            System.out.println("erorrrr:");
-            System.out.println("erro : " + e.getMessage());
+            System.out.println("Error [Cargo.actualizar]: " + e.getMessage());
+            return false;
         }
     }
     /**
@@ -76,7 +108,7 @@ public class Cargo{
                 return false;
             }
         } catch (HibernateException e) {
-            System.out.println("error eliminar :" + e.getMessage());
+            System.out.println("Error [Cargo.eliminar]: " + e.getMessage());
             return false;
         }
     }
@@ -95,14 +127,8 @@ public class Cargo{
             tx.commit();
             session.close();
         } catch (HibernateException e) {
-            System.out.println("error consultar :" + e.getMessage());
+            System.out.println("Error [Cargo.consultarPorId]: " + e.getMessage());
         }
         return cargo;
-    }
-    
-    public static void main(String str[]){
-        Cargo o = new Cargo();
-        System.out.println("estado :" + String.valueOf(o.eliminar(5)));
-        System.exit(0);
     }
 }
