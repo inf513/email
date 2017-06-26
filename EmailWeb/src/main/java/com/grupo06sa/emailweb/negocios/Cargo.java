@@ -1,4 +1,5 @@
 /*
+ * dfffffffffffffffffffffffffffffffffff
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -98,6 +99,7 @@ public class Cargo{
         }
         return cargo;
     }
+    
     public static void main(String str[]){
         Cargo o = new Cargo();
         System.out.println("estado :" + String.valueOf(o.eliminar(5)));
