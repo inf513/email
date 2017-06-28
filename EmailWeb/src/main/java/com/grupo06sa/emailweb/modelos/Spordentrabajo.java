@@ -188,7 +188,10 @@ public class Spordentrabajo  implements java.io.Serializable {
         this.sptransfequipos = sptransfequipos;
     }
 
-
+    @Override
+    public String toString(){
+        return "[ data : " + this.getData() + ", nombre : " + this.getNombre() + "]";
+    }
 
 
 }

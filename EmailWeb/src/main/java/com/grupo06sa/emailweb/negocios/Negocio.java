@@ -8,6 +8,7 @@ package com.grupo06sa.emailweb.negocios;
 
 import com.grupo06sa.emailweb.modelos.Spcargo;
 import com.grupo06sa.emailweb.modelos.Spgestion;
+import com.grupo06sa.emailweb.modelos.Spordentrabajo;
 
 /**
  * 
@@ -232,29 +233,99 @@ public class Negocio {
      */
     public static Respuesta adicionarOrdenTrabajo(String data){
         Respuesta respuesta = null;
-        Gestion gestion = new Gestion();
-        String res = gestion.validarFormatoFecha(data);
-        if(res.length()<=0){
-            Spgestion modelo = gestion.getParser(data);
-            if(modelo != null){
-                String value = gestion.validarGestion(modelo);
-                if(value.length()<=0){
-                    if(gestion.adicionar(modelo)){
-                        respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkgestion()));
-                    }
-                    else{
-                        respuesta = new Respuesta(COMANDO.MS_ERROR, "");
-                    }                                
-                }else{
-                    respuesta = new Respuesta(COMANDO.MS_VALID, value);
+        OrdenTrabajo ot = new OrdenTrabajo();        
+
+        Spordentrabajo modelo = ot.getParser(data);    
+        if(modelo != null){
+            String value = ot.validarOrdenTrabajo(modelo);
+            if(value.length()<=0){
+                if(ot.adicionar(modelo)){
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkordentrabajo()));
                 }
+                else{
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "");
+                }                                
             }else{
-                respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
-            }        
+                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+            }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_ERROR, res);
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+        }
+        
+        return respuesta;
+    }
+    /**
+     * Metodo que actualiza una orden de trabajo
+     * @param data trama de entrada con los datos de la orden de trabajo
+     * @return 
+     */
+    public static Respuesta actualizarOrdenTrabajo(String data){
+        Respuesta respuesta = null;
+        OrdenTrabajo ot = new OrdenTrabajo();        
+
+        Spordentrabajo modelo = ot.getParser(data);
+        if(modelo != null){
+            String value = ot.validarOrdenTrabajo(modelo);
+            if(value.length()<=0){
+                if(ot.actualizar(modelo)){
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkordentrabajo()));
+                }
+                else{
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "");
+                }                                
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+        }
+        
+        return respuesta;
+    }
+    /**
+     * Metodo que busca una orden de trabajo a partir de una id
+     * @param data 
+     * @return 
+     */
+    public static Respuesta consultarOrdenTrabajo(String data){
+        Respuesta respuesta = null;
+        //[1]
+        data = data.replace("[", "");
+        data = data.replace("]", "");
+        if(FuncionesComunes.esNumero(data)){
+            Spordentrabajo modelo = OrdenTrabajo.consultarPorId(Integer.parseInt(data));
+            if(modelo != null){
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, modelo.toString());
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "No se encontro Orden de Trabajo");
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "Es necesario un numero");
         }
         return respuesta;
     }
     
+    /**
+     * Metodo que elimina una orden de trabajo
+     * @param data
+     * @return 
+     */
+    public static Respuesta eliminarOrdenTrabajo(String data){
+        Respuesta respuesta = null;
+        OrdenTrabajo ot = new OrdenTrabajo();
+        //[1]
+        data = data.replace("[", "");
+        data = data.replace("]", "");
+        if(FuncionesComunes.esNumero(data)){
+            if(ot.eliminar(Integer.parseInt(data))){
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "OT ELIMINADA CORRECTAMENTE");
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ELIMINAR");
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "Es necesario un numero");
+        }
+        return respuesta;
+    }
+            
 }

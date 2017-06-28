@@ -17,7 +17,9 @@ public class principal {
             Analizador a = new Analizador();
             
             //String trama = "UPD|GESTION|[2,18,2018-01-01,2018-12-31]";
-            String trama = "CON|GESTION|[2]";
+            //String trama = "UPD|CARGO|[2,003,OPERADOR]";
+            //String trama = "ADD|ORDEN|[1, 2, 001, NOMBRE DE OT, JUAN PERES, 10]";
+            String trama = "DEL|ORDEN|[2]";
             Respuesta r = a.analizarTrama(trama);
             System.out.println(r.toString());
             System.exit(0);

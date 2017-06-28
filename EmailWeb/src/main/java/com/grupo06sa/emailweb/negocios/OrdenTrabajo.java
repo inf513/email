@@ -43,15 +43,20 @@ public class OrdenTrabajo {
         }        
         return data;
     }
+    /**
+     * Metodo que valida la trama de entrada y devuelve el modelo
+     * @param data la trama que se genera
+     * @return 
+     */
     public Spordentrabajo getParser(String data){
         Spordentrabajo ot = null;
-        //   int            int         str   str       str         int          char    str          
-        //[pkordentrabajo, idgestion, codigo, nombre, supervisor, areaestimada, estado, data]
+        //   int            int         str   str       str         int       
+        //[pkordentrabajo, idgestion, codigo, nombre, supervisor, areaestimada]
         data = data.replace("[", "");
         data = data.replace("]", "");
         String[] datos = data.split(",");
         
-        if(datos.length != 8) return ot;
+        if(datos.length != 6) return ot;
         
         if(FuncionesComunes.esNumero(datos[0])){
             ot = new Spordentrabajo();
@@ -128,7 +133,7 @@ public class OrdenTrabajo {
     public boolean eliminar(int id){
         Spordentrabajo ot = null;
         try {
-            ot = this.consultarPorId(id);
+            ot = OrdenTrabajo.consultarPorId(id);
             if(ot !=null ){
                 SessionFactory factory = HibernateUtil.getSessionFactory();
                 Session session = factory.openSession();
@@ -151,7 +156,7 @@ public class OrdenTrabajo {
      * @param id Identificador primario de base de datos
      * @return Modelo de datos
      */
-    public Spordentrabajo consultarPorId(int id){
+    public static Spordentrabajo consultarPorId(int id){
         Spordentrabajo ot = null;
         try {
             SessionFactory factory = HibernateUtil.getSessionFactory();

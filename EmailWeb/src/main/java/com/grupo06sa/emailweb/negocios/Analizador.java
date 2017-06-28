@@ -95,7 +95,7 @@ public class Analizador {
                 respuesta = Negocio.eliminarGestion(data);
                 break;
             case COMANDO.TB_ORDEN:
-                
+                respuesta = Negocio.eliminarOrdenTrabajo(data);
                 break;
             case COMANDO.TB_ACTIVIDAD:
                 
@@ -122,7 +122,7 @@ public class Analizador {
                 respuesta = Negocio.actualizarGestion(data);
                 break;
             case COMANDO.TB_ORDEN:
-                
+                respuesta = Negocio.actualizarOrdenTrabajo(data);
                 break;
             case COMANDO.TB_ACTIVIDAD:
                 
@@ -149,7 +149,7 @@ public class Analizador {
                 respuesta = Negocio.consultarGestion(data);
                 break;
             case COMANDO.TB_ORDEN:
-                
+                respuesta = Negocio.consultarOrdenTrabajo(data);
                 break;
             case COMANDO.TB_ACTIVIDAD:
                 
