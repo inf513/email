@@ -20,7 +20,8 @@ public class COMANDO {
     public final static String TB_GESTION = "GESTION";
     public final static String TB_ORDEN = "ORDEN";
     public final static String TB_ACTIVIDAD = "ACTIVIDAD";
-    
+    public final static String TB_POLIGONO = "POLIGONO";
+    public final static String RB_PERSONAL = "PERSONAL";
     /**
      * CUANDO LA TRANSACCION NO PUDO EJECUTARSE
      */

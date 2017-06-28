@@ -69,10 +69,10 @@ public class Sppoligono  implements java.io.Serializable {
     public void setSpitemobras(Set spitemobras) {
         this.spitemobras = spitemobras;
     }
-
-
-
-
+    @Override
+    public String toString(){
+        return "[codigo : " + this.getCodigo() + ", descripcion : " + this.getDescripcion() + "]";
+    }
 }
 
 

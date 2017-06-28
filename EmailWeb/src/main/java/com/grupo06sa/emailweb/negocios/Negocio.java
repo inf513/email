@@ -6,9 +6,11 @@
 
 package com.grupo06sa.emailweb.negocios;
 
+import com.grupo06sa.emailweb.modelos.Spactividad;
 import com.grupo06sa.emailweb.modelos.Spcargo;
 import com.grupo06sa.emailweb.modelos.Spgestion;
 import com.grupo06sa.emailweb.modelos.Spordentrabajo;
+import com.grupo06sa.emailweb.modelos.Sppoligono;
 
 /**
  * 
@@ -327,5 +329,204 @@ public class Negocio {
         }
         return respuesta;
     }
-            
+    /**
+     * Metodo que adiciona una actividad a la base de datos
+     * @param data trama de datos
+     * @return 
+     */
+    public static Respuesta adicionarActividad(String data){
+        Respuesta respuesta = null;
+        Actividad actividad = new Actividad();
+
+        Spactividad modelo = actividad.getParser(data);
+        if(modelo != null){
+            String value = actividad.validarActividad(modelo);
+            if(value.length()<=0){
+                if(actividad.adicionar(modelo)){
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkactividad()));
+                }
+                else{
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ADICIONAR ACTIVIDAD");
+                }                                
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+        }
+        
+        return respuesta;
+    }
+    /**
+     * Metodo que elimina una actividad de la base de datos
+     * @param data trama de datos
+     * @return 
+     */
+    public static Respuesta eliminarActividad(String data){
+        Respuesta respuesta = null;
+        Actividad actividad = new Actividad();
+        //[1]
+        data = data.replace("[", "");
+        data = data.replace("]", "");
+        if(FuncionesComunes.esNumero(data)){
+            if(actividad.eliminar(Integer.parseInt(data))){
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "ACTIVIDAD ELIMINADA CORRECTAMENTE");
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ELIMINAR");
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "Es necesario un numero");
+        }
+        return respuesta;
+    }
+    /**
+     * Metodo que actualiza una actividad en la base de datos
+     * @param data trama de base de datos
+     * @return 
+     */
+    public static Respuesta actualizarActividad(String data){
+        Respuesta respuesta = null;
+        Actividad actividad = new Actividad();
+
+        Spactividad modelo = actividad.getParser(data);
+        if(modelo != null){
+            String value = actividad.validarActividad(modelo);
+            if(value.length()<=0){
+                if(actividad.actualizar(modelo)){
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkactividad()));
+                }
+                else{
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ACTUALIZAR ACTIVIDAD");
+                }                                
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+        }
+        
+        return respuesta;
+    }
+    /**
+     * Metodo que obtiene una actividad a partir de su identificador
+     * @param data trama de datos 
+     * @return 
+     */
+    public static Respuesta consultarActividad(String data){
+        Respuesta respuesta = null;
+        //[1]
+        data = data.replace("[", "");
+        data = data.replace("]", "");
+        if(FuncionesComunes.esNumero(data)){
+            Spactividad modelo = Actividad.consultarPorId(Integer.parseInt(data));
+            if(modelo != null){
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, modelo.toString());
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "NO SE ENCONTRO ACTIVIDAD");
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO");
+        }
+        return respuesta;
+    }
+    /**
+     * Metodo que adiciona un poligono a la base de datos
+     * @param data trama de datos 
+     * @return 
+     */
+    public static Respuesta adicionarPoligono(String data){
+        Respuesta respuesta = null;
+        Poligono poligono = new Poligono();
+
+        Sppoligono modelo = poligono.getParser(data);
+        if(modelo != null){
+            String value = poligono.validarPoligono(modelo);
+            if(value.length()<=0){
+                if(poligono.adicionar(modelo)){
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkpoligono()));
+                }
+                else{
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ADICIONAR POLIGONO");
+                }                                
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+        }
+        
+        return respuesta;
+    }
+    /**
+     * Metodo que elimina un poligono de la base de datos
+     * @param data trama de datos
+     * @return 
+     */
+    public static Respuesta eliminarPoligono(String data){
+        Respuesta respuesta = null;
+        Poligono poligono = new Poligono();
+        //[1]
+        data = data.replace("[", "");
+        data = data.replace("]", "");
+        if(FuncionesComunes.esNumero(data)){
+            if(poligono.eliminar(Integer.parseInt(data))){
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "POLIGONO ELIMINADO CORRECTAMENTE");
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ELIMINAR");
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "Es necesario un numero");
+        }
+        return respuesta;
+    }
+    /**
+     * Metodo que actualiza una poligono en la base de datos
+     * @param data trama de base de datos
+     * @return 
+     */
+    public static Respuesta actualizarPoligono(String data){
+        Respuesta respuesta = null;
+        Poligono poligono = new Poligono();
+
+        Sppoligono modelo = poligono.getParser(data);
+        if(modelo != null){
+            String value = poligono.validarPoligono(modelo);
+            if(value.length()<=0){
+                if(poligono.actualizar(modelo)){
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkpoligono()));
+                }
+                else{
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ACTUALIZAR POLIGONO");
+                }                                
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+        }
+        
+        return respuesta;
+    }
+    /**
+     * Metodo que obtiene un poligono a partir de su identificador
+     * @param data trama de datos 
+     * @return 
+     */
+    public static Respuesta consultarPoligono(String data){
+        Respuesta respuesta = null;
+        //[1]
+        data = data.replace("[", "");
+        data = data.replace("]", "");
+        if(FuncionesComunes.esNumero(data)){
+            Sppoligono modelo = Poligono.consultarPorId(Integer.parseInt(data));
+            if(modelo != null){
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, modelo.toString());
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "NO SE ENCONTRO ACTIVIDAD");
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO");
+        }
+        return respuesta;
+    }
 }

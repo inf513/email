@@ -71,7 +71,10 @@ public class Analizador {
                 respuesta = Negocio.adicionarOrdenTrabajo(data);
                 break;
             case COMANDO.TB_ACTIVIDAD:
-                
+                respuesta = Negocio.adicionarActividad(data);
+                break;
+            case COMANDO.TB_POLIGONO:
+                respuesta = Negocio.adicionarPoligono(data);
                 break;
             default:
                 respuesta = new Respuesta(COMANDO.MS_TABLA,"");
@@ -98,7 +101,10 @@ public class Analizador {
                 respuesta = Negocio.eliminarOrdenTrabajo(data);
                 break;
             case COMANDO.TB_ACTIVIDAD:
-                
+                respuesta = Negocio.eliminarActividad(data);
+                break;
+            case COMANDO.TB_POLIGONO:
+                respuesta = Negocio.eliminarPoligono(data);
                 break;
             default:
                 respuesta = new Respuesta(COMANDO.MS_TABLA,"Tabla no encontrada");
@@ -125,7 +131,10 @@ public class Analizador {
                 respuesta = Negocio.actualizarOrdenTrabajo(data);
                 break;
             case COMANDO.TB_ACTIVIDAD:
-                
+                respuesta = Negocio.actualizarActividad(data);
+                break;
+            case COMANDO.TB_POLIGONO:
+                respuesta = Negocio.actualizarPoligono(data);
                 break;
             default:
                 respuesta = new Respuesta(COMANDO.MS_TABLA,"Tabla no encontrada");
@@ -152,7 +161,10 @@ public class Analizador {
                 respuesta = Negocio.consultarOrdenTrabajo(data);
                 break;
             case COMANDO.TB_ACTIVIDAD:
-                
+                respuesta = Negocio.consultarActividad(data);
+                break;
+            case COMANDO.TB_POLIGONO:
+                respuesta = Negocio.consultarPoligono(data);
                 break;
             default:
                 respuesta = new Respuesta(COMANDO.MS_TABLA,"Tabla no encontrada");

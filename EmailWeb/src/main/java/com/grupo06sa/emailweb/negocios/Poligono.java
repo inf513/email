@@ -8,6 +8,7 @@ package com.grupo06sa.emailweb.negocios;
 
 import com.grupo06sa.emailweb.modelos.Spactividad;
 import com.grupo06sa.emailweb.modelos.Spordentrabajo;
+import com.grupo06sa.emailweb.modelos.Sppoligono;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,22 +18,22 @@ import org.hibernate.Transaction;
  * 
  * @author Alex Limbert Yalusqui <limbertyalusqui@gmail.com>
  */
-public class Actividad {
-    
-    public Actividad(){}
+public class Poligono {
+
+    public Poligono(){}
     
     /**
-     * Valida si los campos de la actividad cumplen los requisitos necesarios
-     * @param actividad modelo a verificar
+     * Valida si los campos del poligono cumplen los requisitos necesarios
+     * @param poligono modelo a verificar
      * @return 
      */
-    public String validarActividad(Spactividad actividad){
+    public String validarPoligono(Sppoligono poligono){
         String data = "";
-        if(actividad.getCodigo().length() > 2){
-            data += "Codigo de actividad maximo 2 caracteres";
+        if(poligono.getCodigo().length() > 3){
+            data += "Codigo de Poligono maximo 3 caracteres";
         }
-        if(actividad.getDescripcion().length() > 50){
-            data += "Descripcion de actividad maximo 50 caracteres";
+        if(poligono.getDescripcion().length() > 50){
+            data += "Descripcion de poligono maximo 50 caracteres";
         }        
         return data;
     }
@@ -41,87 +42,87 @@ public class Actividad {
      * @param data trama de datos
      * @return 
      */
-    public Spactividad getParser(String data){
-        Spactividad actividad = null;
+    public Sppoligono getParser(String data){
+        Sppoligono poligono = null;
         //[id, codigo, descripcion]
         data = data.replace("[", "");
         data = data.replace("]", "");
         String[] datos = data.split(",");
         
-        if(datos.length != 4) return actividad;
+        if(datos.length != 4) return poligono;
         
         if(FuncionesComunes.esNumero(datos[0].trim())){
-            actividad = new Spactividad();
-            actividad.setPkactividad(Integer.valueOf(datos[0]));            
+            poligono = new Sppoligono();
+            poligono.setPkpoligono(Integer.valueOf(datos[0]));
             if(FuncionesComunes.esNumero(datos[1].trim())){
                 Spordentrabajo ot = OrdenTrabajo.consultarPorId(Integer.valueOf(datos[1].trim()));
-                actividad.setSpordentrabajo(ot);
+                poligono.setSpordentrabajo(ot);
                 if(datos[2].length()>0){
-                    actividad.setCodigo(datos[2]);
+                    poligono.setCodigo(datos[2]);
                     if(datos[3].length()>0){
-                        actividad.setDescripcion(datos[3]);
-                    }                                        
+                        poligono.setDescripcion(datos[3]);
+                    }
                 }
             }
         }
-        return actividad;
+        return poligono;
     }
     /**
-     * adiciona una actividad a la base de datos
-     * @param actividad Modelo de actividad
+     * adiciona un poligono a la base de datos
+     * @param poligono Modelo de poligono
      * @return 
      */
-    public boolean adicionar(Spactividad actividad){
+    public boolean adicionar(Sppoligono poligono){
         try {
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session session;
             session = sf.openSession();
             Transaction tx = session.beginTransaction();
-            session.save(actividad);
+            session.save(poligono);
             tx.commit();
             session.close();
             return true;
         } catch (HibernateException e) {
             Throwable cause = e.getCause();
-            System.out.println("Error [Actividad.adicionar]: " + cause.getMessage());
+            System.out.println("Error [Poligono.adicionar]: " + cause.getMessage());
             return false;
         }
     }
     /**
-     * Actualiza una actividad
-     * @param actividad Los nuevos datos a modificar
+     * Actualiza una poligono
+     * @param poligono Los nuevos datos a modificar
      * @return 
      */
-    public boolean actualizar(Spactividad actividad){
+    public boolean actualizar(Sppoligono poligono){
         try {
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session session;
             session = sf.openSession();
             Transaction tx = session.beginTransaction();
-            session.update(actividad);            
+            session.update(poligono);
             tx.commit();
             session.close();
             return true;
         } catch (HibernateException e) {
             Throwable cause = e.getCause();
-            System.out.println("Error [Actividad.actualizar]: " + cause.getMessage());            
+            System.out.println("Error [Poligono.actualizar]: " + cause.getMessage());            
             return false;
         }
     }
     /**
-     * elimina una actividad de acuerdo a su identificador
-     * @param id Identificador primario de actividad
+     * elimina un poligono de acuerdo a su identificador
+     * @param id Identificador primario del poligono
      * @return True si se elimino correctamente , en otro caso falso
      */
     public boolean eliminar(int id){
-        Spactividad actividad = null;
+        Sppoligono poligono = null;
         try {
-            actividad = Actividad.consultarPorId(id);
-            if(actividad !=null ){
+            poligono = Poligono.consultarPorId(id);
+            if(poligono !=null ){
                 SessionFactory factory = HibernateUtil.getSessionFactory();
                 Session session = factory.openSession();
                 Transaction tx = session.beginTransaction();
-                session.delete(actividad);
+                session.delete(poligono);
                 tx.commit();
                 session.close();
                 return true;
@@ -130,28 +131,28 @@ public class Actividad {
             }
         } catch (HibernateException e) {
             Throwable cause = e.getCause();
-            System.out.println("Error [Actividad.eliminar]: " + cause.getMessage());            
+            System.out.println("Error [Poligono.eliminar]: " + cause.getMessage());
             return false;
         }
     }
     /**
-     * Obtiene una actividad de la base de datos en base a su id
+     * Obtiene un poligono de la base de datos en base a su id
      * @param id Identificador primario de base de datos
      * @return Modelo de datos
      */
-    public static Spactividad consultarPorId(int id){
-        Spactividad actividad = null;
+    public static Sppoligono consultarPorId(int id){
+        Sppoligono poligono = null;
         try {
             SessionFactory factory = HibernateUtil.getSessionFactory();
             Session session = factory.openSession();
             Transaction tx = session.beginTransaction();
-            actividad = (Spactividad) session.get(Spactividad.class, id);
+            poligono = (Sppoligono) session.get(Sppoligono.class, id);
             tx.commit();
             session.close();
         } catch (HibernateException e) {
             Throwable cause = e.getCause();            
-            System.out.println("Error [Actividad.consultarPorId]: " + cause.getMessage());
+            System.out.println("Error [Poligono.consultarPorId]: " + cause.getMessage());
         }
-        return actividad;
+        return poligono;
     }
 }

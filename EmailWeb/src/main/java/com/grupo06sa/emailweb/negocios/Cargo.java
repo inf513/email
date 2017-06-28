@@ -48,14 +48,8 @@ public class Cargo{
                 
                 if(datos[2].length()>0){
                     cargo.setDescripcion(datos[2]);
-                }else{
-                    cargo = null;
                 }
-            }else{
-                cargo = null;
             }
-        }else{
-            cargo = null;
         }
         return cargo;
     }

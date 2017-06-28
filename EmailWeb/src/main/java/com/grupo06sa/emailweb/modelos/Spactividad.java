@@ -70,9 +70,10 @@ public class Spactividad  implements java.io.Serializable {
         this.spitemobras = spitemobras;
     }
 
-
-
+    @Override
+    public String toString(){
+        return "[codigo : " + this.getCodigo() + ", descripcion : " + this.getDescripcion() + "]";
+    }
+    
 
 }
-
-

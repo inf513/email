@@ -6,7 +6,7 @@
     <class name="com.grupo06sa.emailweb.modelos.Sppoligono" table="sppoligono" schema="public" optimistic-lock="version">
         <id name="pkpoligono" type="int">
             <column name="pkpoligono" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="spordentrabajo" class="com.grupo06sa.emailweb.modelos.Spordentrabajo" fetch="select">
             <column name="fkordentrabajo" not-null="true" />

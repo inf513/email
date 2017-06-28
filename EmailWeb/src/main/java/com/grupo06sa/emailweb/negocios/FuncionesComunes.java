@@ -18,6 +18,7 @@ public class FuncionesComunes {
     
     public static boolean esNumero(String cadena){
             try {
+                    cadena = cadena.trim();
                     Integer.parseInt(cadena);
                     return true;
             } catch (NumberFormatException nfe){
