@@ -104,7 +104,7 @@ public class Cargo{
     public boolean eliminar(int id){
         Spcargo cargo = null;
         try {
-            cargo = this.consultarPorId(id);
+            cargo = Cargo.consultarPorId(id);
             if(cargo !=null ){
                 SessionFactory factory = HibernateUtil.getSessionFactory();
                 Session session = factory.openSession();
@@ -127,7 +127,7 @@ public class Cargo{
      * @param id Identificador primario de base de datos
      * @return Modelo de datos
      */
-    public Spcargo consultarPorId(int id){
+    public static Spcargo consultarPorId(int id){
         Spcargo cargo = null;
         try {
             SessionFactory factory = HibernateUtil.getSessionFactory();
