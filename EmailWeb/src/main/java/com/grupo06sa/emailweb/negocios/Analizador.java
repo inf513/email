@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.grupo06sa.emailweb.negocios;
 
 /**
@@ -11,7 +5,9 @@ package com.grupo06sa.emailweb.negocios;
  * @author Alex Limbert Yalusqui <limbertyalusqui@gmail.com>
  */
 public class Analizador {
+    
     private final static String separador = "\\|";
+    
     public Analizador(){}
     
     public Respuesta analizarTrama(String trama){
@@ -76,6 +72,9 @@ public class Analizador {
             case COMANDO.TB_POLIGONO:
                 respuesta = Negocio.adicionarPoligono(data);
                 break;
+            case COMANDO.TB_ITEMOBRA:
+                respuesta = Negocio.adicionarItemObra(data);
+                break;
             default:
                 respuesta = new Respuesta(COMANDO.MS_TABLA,"");
                 break;
@@ -106,6 +105,9 @@ public class Analizador {
             case COMANDO.TB_POLIGONO:
                 respuesta = Negocio.eliminarPoligono(data);
                 break;
+            case COMANDO.TB_ITEMOBRA:
+                respuesta = Negocio.eliminarItemObra(data);
+                break;                
             default:
                 respuesta = new Respuesta(COMANDO.MS_TABLA,"Tabla no encontrada");
                 break;
@@ -136,6 +138,9 @@ public class Analizador {
             case COMANDO.TB_POLIGONO:
                 respuesta = Negocio.actualizarPoligono(data);
                 break;
+            case COMANDO.TB_ITEMOBRA:
+                respuesta = Negocio.actualizarItemObra(data);
+                break;                
             default:
                 respuesta = new Respuesta(COMANDO.MS_TABLA,"Tabla no encontrada");
                 break;
@@ -166,6 +171,9 @@ public class Analizador {
             case COMANDO.TB_POLIGONO:
                 respuesta = Negocio.consultarPoligono(data);
                 break;
+            case COMANDO.TB_ITEMOBRA:
+                respuesta = Negocio.consultarItemObra(data);
+                break;                
             default:
                 respuesta = new Respuesta(COMANDO.MS_TABLA,"Tabla no encontrada");
                 break;

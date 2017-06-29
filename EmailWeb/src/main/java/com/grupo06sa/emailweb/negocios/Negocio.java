@@ -9,6 +9,7 @@ package com.grupo06sa.emailweb.negocios;
 import com.grupo06sa.emailweb.modelos.Spactividad;
 import com.grupo06sa.emailweb.modelos.Spcargo;
 import com.grupo06sa.emailweb.modelos.Spgestion;
+import com.grupo06sa.emailweb.modelos.Spitemobra;
 import com.grupo06sa.emailweb.modelos.Spordentrabajo;
 import com.grupo06sa.emailweb.modelos.Sppoligono;
 
@@ -529,4 +530,106 @@ public class Negocio {
         }
         return respuesta;
     }
+    /**
+     * Adiciona un item obra
+     * @param data item obra como trama
+     * @return 
+     */
+    public static Respuesta adicionarItemObra(String data){
+        Respuesta respuesta = null;
+        ItemObra io = new ItemObra();
+
+        Spitemobra modelo = io.getParser(data);
+        if(modelo != null){
+            String value = io.validarItemObra(modelo);
+            if(value.length()<=0){
+                if(io.adicionar(modelo)){
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkitemobra()));
+                }
+                else{
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ADICIONAR");
+                }                                
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+        }
+        
+        return respuesta;
+    }
+    /**
+     * Metodo que actualiza un Item obra
+     * @param data trama de entrada con los datos de item obra
+     * @return 
+     */
+    public static Respuesta actualizarItemObra(String data){
+        Respuesta respuesta = null;
+        ItemObra io = new ItemObra();
+
+        Spitemobra modelo = io.getParser(data);
+        if(modelo != null){
+            String value = io.validarItemObra(modelo);
+            if(value.length()<=0){
+                if(io.actualizar(modelo)){
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkitemobra()));
+                }
+                else{
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ACTUALIZAR ITEM OBRA");
+                }                                
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+        }
+        
+        return respuesta;
+    }
+    /**
+     * Metodo que busca una Item obra a partir de una id
+     * @param data  trama de item obra
+     * @return 
+     */
+    public static Respuesta consultarItemObra(String data){
+        Respuesta respuesta = null;
+        //[1]
+        data = data.replace("[", "");
+        data = data.replace("]", "");
+        if(FuncionesComunes.esNumero(data)){
+            Spitemobra modelo = ItemObra.consultarPorId(Integer.parseInt(data));
+            if(modelo != null){
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, modelo.toString());
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "NO SE ENCONTRO ITEM OBRA");
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO");
+        }
+        return respuesta;
+    }
+    
+    /**
+     * Metodo que elimina un item obra
+     * @param data trama de datos 
+     * @return 
+     */
+    public static Respuesta eliminarItemObra(String data){
+        Respuesta respuesta = null;
+        ItemObra io = new ItemObra();
+        //[1]
+        data = data.replace("[", "");
+        data = data.replace("]", "");
+        if(FuncionesComunes.esNumero(data)){
+            if(io.eliminar(Integer.parseInt(data))){
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "ITEM OBRA ELIMINADA CORRECTAMENTE");
+            }else{
+                respuesta = new Respuesta(COMANDO.MS_ERROR, "ITEM OBRA NO SE PUDO ELIMINAR");
+            }
+        }else{
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO");
+        }
+        return respuesta;
+    }
+    
 }

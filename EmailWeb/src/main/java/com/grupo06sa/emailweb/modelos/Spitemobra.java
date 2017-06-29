@@ -108,10 +108,9 @@ public class Spitemobra  implements java.io.Serializable {
     public void setSpdetproductivas(Set spdetproductivas) {
         this.spdetproductivas = spdetproductivas;
     }
-
-
-
-
+    
+    @Override
+    public String toString(){
+        return "[codigo : " + this.getCodigo() + ", descripcion : " + this.getDescripcion() + "]";
+    }
 }
-
-

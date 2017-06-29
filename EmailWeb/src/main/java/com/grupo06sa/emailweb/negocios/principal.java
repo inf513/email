@@ -21,7 +21,9 @@ public class principal {
             //String trama = "ADD|ORDEN|[1,2,001,NOMBRE DE OT,JUAN PERES,10]";
             //String trama = "UPD|ACTIVIDAD|[1,1,01,BASUREO]";
             //String trama = "ADD|POLIGONO|[1,1,A03,POLIGONO - A03]";
-            String trama =   "CON|POLIGONO|[1]";
+            //ID_IO|IDordentrabajo|IDctividad|IDpoligono|descripcion|areatrab|rendimiento
+            //String trama = "ADD|ITEMOBRA|[0,1,1,1,CADENEO POLIGONO A1,1000,0.5]";
+            String trama = "CON|ITEMOBRA|[1]";
             Respuesta r = a.analizarTrama(trama);
             System.out.println(r.toString());
             System.exit(0);
