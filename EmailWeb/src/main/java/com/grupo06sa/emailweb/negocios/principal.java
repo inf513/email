@@ -23,7 +23,10 @@ public class principal {
             //String trama = "ADD|POLIGONO|[0,1,A04,POLIGONO - A04]";
             //ID_IO|IDordentrabajo|IDctividad|IDpoligono|descripcion|areatrab|rendimiento xx
             //String trama = "ADD|ITEMOBRA|[0,1,2,2,CADENEO POLIGONO A4,1000,0.5]";
-            String trama = "LST|ITEMOBRA|[]";
+            //String trama = "LST|ITEMOBRA|[]";
+           // String trama = "ADD|CARGO|[0,010,GERENTE]";
+           String trama = "LST|CARGO|[]";
+            
             Respuesta r = a.analizarTrama(trama);
             System.out.println(r.getCode());
             System.out.println(r.getDescripcion());

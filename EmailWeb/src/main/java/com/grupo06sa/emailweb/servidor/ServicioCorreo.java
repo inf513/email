@@ -255,7 +255,7 @@ public class ServicioCorreo {
             while(true){
                 this.readEmail();
                 System.out.println("iteracion de hilo nro : " + String.valueOf(iteracion));
-                Thread.sleep(40000);
+                Thread.sleep(30000);
                 iteracion = iteracion + 1;
             }            
         } catch (InterruptedException ex) {

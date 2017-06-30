@@ -6,6 +6,7 @@ import com.grupo06sa.emailweb.modelos.Spgestion;
 import com.grupo06sa.emailweb.modelos.Spitemobra;
 import com.grupo06sa.emailweb.modelos.Spordentrabajo;
 import com.grupo06sa.emailweb.modelos.Sppoligono;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -164,4 +165,12 @@ public class HtmlFormat {
         return "<td class='data'>" + s + "</td>";
     }
 
+    public static void main(String[] args) {
+        File f=new File("src\\main\\resources\\ayuda.html");
+        
+        if (f.exists()) {
+            System.out.println("Archivo encontrado sac");
+            
+        }
+    }
 }
