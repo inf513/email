@@ -6,9 +6,8 @@
 
 package com.grupo06sa.emailweb.negocios;
 
-import java.text.SimpleDateFormat;
 import com.grupo06sa.emailweb.modelos.Spgestion;
-import java.text.ParseException;
+import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -165,5 +164,22 @@ public class Gestion {
         }
         return gestion;
     }
-    
+    public static String getTabla(){
+        return "GESTIONES";
+    }
+    public static List<Spgestion> listar(){
+        List<Spgestion> lista = null;
+        try {
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            Session session = factory.openSession();
+            Transaction tx = session.beginTransaction();
+            lista = (List<Spgestion>) session.createQuery("SELECT p FROM Spgestion p").list();
+            tx.commit();
+            session.close();
+        } catch (HibernateException e) {
+            Throwable cause = e.getCause();
+            System.out.println("Error [Gestion.listar]: " + cause.getMessage());
+        }
+        return lista;
+    }
 }

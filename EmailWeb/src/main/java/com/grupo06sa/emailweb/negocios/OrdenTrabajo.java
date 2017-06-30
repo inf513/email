@@ -9,6 +9,7 @@ package com.grupo06sa.emailweb.negocios;
 import com.grupo06sa.emailweb.modelos.Spgestion;
 import com.grupo06sa.emailweb.modelos.Spordentrabajo;
 import java.math.BigDecimal;
+import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -72,8 +73,7 @@ public class OrdenTrabajo {
                             ot.setSupervisor(datos[4]);
                             if(FuncionesComunes.esNumero(datos[5])){
                                 ot.setAreaestimada( new BigDecimal(datos[5]));
-                                ot.setEstado('T');
-                                ot.setData(ot.getCodigo()+"-"+g.getCodigo());
+                                ot.setEstado('T');                                
                             }
                         }
                     }
@@ -171,4 +171,23 @@ public class OrdenTrabajo {
         }
         return ot;
     }
+    public static String getTabla(){
+        return "ORDEN DE TRABAJO";
+    }
+    public static List<Spordentrabajo> listar(){
+        List<Spordentrabajo> lista = null;
+        try {
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            Session session = factory.openSession();
+            Transaction tx = session.beginTransaction();
+            lista = (List<Spordentrabajo>) session.createQuery("SELECT p FROM Spordentrabajo p").list();
+            tx.commit();
+            session.close();
+        } catch (HibernateException e) {
+            Throwable cause = e.getCause();
+            System.out.println("Error [Poligono.listar]: " + cause.getMessage());
+        }
+        return lista;
+    }    
+    
 }

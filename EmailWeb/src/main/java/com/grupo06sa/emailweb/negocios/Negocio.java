@@ -12,12 +12,96 @@ import com.grupo06sa.emailweb.modelos.Spgestion;
 import com.grupo06sa.emailweb.modelos.Spitemobra;
 import com.grupo06sa.emailweb.modelos.Spordentrabajo;
 import com.grupo06sa.emailweb.modelos.Sppoligono;
+import java.util.List;
 
 /**
  * 
  * @author Alex Limbert Yalusqui <limbertyalusqui@gmail.com>
  */
 public class Negocio {
+    
+    
+    public static Respuesta listarCargo(){
+        Respuesta respuesta = new Respuesta("INI", "","");
+        List<Spcargo> cargos = Cargo.listar();
+        
+        if(cargos.size() > 0 ){
+            respuesta = new Respuesta(COMANDO.MS_LST, HtmlFormat.getFormatoCargo(cargos), Cargo.getTabla());
+        }else{            
+            respuesta.setCode(COMANDO.MS_SUCCE);
+            respuesta.setNombreTabla(Cargo.getTabla());
+            respuesta.setDescripcion("NO SE ENCONTRARON CARGOS A LISTAR");
+        }        
+        return respuesta;
+    }
+    public static Respuesta listarActividad(){
+        Respuesta respuesta = new Respuesta("INI", "","");
+        List<Spactividad> lista = Actividad.listar();
+        
+        if(lista.size() > 0 ){
+            respuesta = new Respuesta(COMANDO.MS_LST, HtmlFormat.getFormatoActividad(lista), Actividad.getTabla());
+        }else{            
+            respuesta.setCode(COMANDO.MS_SUCCE);
+            respuesta.setNombreTabla(Actividad.getTabla());
+            respuesta.setDescripcion("NO SE ENCONTRARON ACTIVIDADES A LISTAR");
+        }        
+        return respuesta;
+    }
+
+    public static Respuesta listarGestion(){
+        Respuesta respuesta = new Respuesta("INI", "","");
+        List<Spgestion> lista = Gestion.listar();
+        
+        if(lista.size() > 0 ){
+            respuesta = new Respuesta(COMANDO.MS_LST, HtmlFormat.getFormatoGestion(lista), Gestion.getTabla());
+        }else{            
+            respuesta.setCode(COMANDO.MS_SUCCE);
+            respuesta.setNombreTabla(Gestion.getTabla());
+            respuesta.setDescripcion("NO SE ENCONTRARON GESTIONES A LISTAR");
+        }        
+        return respuesta;
+    }
+    public static Respuesta listarPoligono(){
+        Respuesta respuesta = new Respuesta("INI", "","");
+        List<Sppoligono> lista = Poligono.listar();
+        
+        if(lista.size() > 0 ){
+            respuesta = new Respuesta(COMANDO.MS_LST, HtmlFormat.getFormatoPoligono(lista), Poligono.getTabla());
+        }else{            
+            respuesta.setCode(COMANDO.MS_SUCCE);
+            respuesta.setNombreTabla(Poligono.getTabla());
+            respuesta.setDescripcion("NO SE ENCONTRARON POLIGONOS A LISTAR");
+        }        
+        return respuesta;
+    }
+
+    public static Respuesta listarItemObra(){
+        Respuesta respuesta = new Respuesta("INI", "","");
+        List<Spitemobra> lista = ItemObra.listar();
+        
+        if(lista.size() > 0 ){
+            respuesta = new Respuesta(COMANDO.MS_LST, HtmlFormat.getFormatoItemObra(lista), ItemObra.getTabla());
+        }else{            
+            respuesta.setCode(COMANDO.MS_SUCCE);
+            respuesta.setNombreTabla(ItemObra.getTabla());
+            respuesta.setDescripcion("NO SE ENCONTRARON ITEM OBRAS A LISTAR");
+        }        
+        return respuesta;
+    }
+    public static Respuesta listarOrdenTrabajo(){
+        Respuesta respuesta = new Respuesta("INI", "","");
+        List<Spordentrabajo> lista = OrdenTrabajo.listar();
+        
+        if(lista.size() > 0 ){
+            respuesta = new Respuesta(COMANDO.MS_LST, HtmlFormat.getFormatoOrdenTrabajo(lista), OrdenTrabajo.getTabla());
+        }else{            
+            respuesta.setCode(COMANDO.MS_SUCCE);
+            respuesta.setNombreTabla(OrdenTrabajo.getTabla());
+            respuesta.setDescripcion("NO SE ENCONTRARON ORDENES DE TRABAJO A LISTAR");
+        }        
+        return respuesta;
+    }
+    
     /**
      * Metodo que adiciona un cargo
      * @param data
@@ -31,16 +115,15 @@ public class Negocio {
             String value = cargo.validarCargo(modelo);
             if(value.length()<=0){
                 if(cargo.adicionar(modelo)){
-                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkcargo()));
-                }
-                else{
-                    respuesta = new Respuesta(COMANDO.MS_ERROR, "");
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, "CARGO ADICIONADO CORRECTAMENTE", Cargo.getTabla());
+                }else{
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ADICIONAR CARGO", Cargo.getTabla());
                 }                                
             }else{
-                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+                respuesta = new Respuesta(COMANDO.MS_VALID, value, Cargo.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA", Cargo.getTabla());
         }
         
         return respuesta;
@@ -58,16 +141,16 @@ public class Negocio {
             String value = cargo.validarCargo(modelo);
             if(value.length()<=0){
                 if(cargo.actualizar(modelo)){
-                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkcargo()));
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, "CARGO MODIFICADO CORRECTAMENTE", Cargo.getTabla());
                 }
                 else{
-                    respuesta = new Respuesta(COMANDO.MS_ERROR, "");
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO MODIFICAR CARGO", Cargo.getTabla());
                 }                                
             }else{
-                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+                respuesta = new Respuesta(COMANDO.MS_VALID, value, "");
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA", Cargo.getTabla());
         }
         
         return respuesta;
@@ -89,19 +172,19 @@ public class Negocio {
                 String value = gestion.validarGestion(modelo);
                 if(value.length()<=0){
                     if(gestion.actualizar(modelo)){
-                        respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkgestion()));
+                        respuesta = new Respuesta(COMANDO.MS_SUCCE, "GESTION MODIFICADA CORRECTAMENTE", Gestion.getTabla());
                     }
                     else{
-                        respuesta = new Respuesta(COMANDO.MS_ERROR, "");
+                        respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO MODIFICAR GESTION", Gestion.getTabla());
                     }                                
                 }else{
-                    respuesta = new Respuesta(COMANDO.MS_VALID, value);
+                    respuesta = new Respuesta(COMANDO.MS_VALID, value, Gestion.getTabla());
                 }
             }else{
-                respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+                respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA", Gestion.getTabla());
             }            
         }else{
-            respuesta = new Respuesta(COMANDO.MS_ERROR, res);
+            respuesta = new Respuesta(COMANDO.MS_ERROR, res, Gestion.getTabla());
         }        
         return respuesta;
     }
@@ -119,12 +202,12 @@ public class Negocio {
         data = data.replace("]", "");
         if(FuncionesComunes.esNumero(data)){
             if(cargo.eliminar(Integer.parseInt(data))){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "");
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "CARGO ELIMINADO CORRECTAMENTE", Cargo.getTabla());
             }else{
-                respuesta = new Respuesta(COMANDO.MS_ERROR, "");
+                respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ELIMINAR CARGO", Cargo.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "Es necesario un numero");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO", Cargo.getTabla());
         }
         return respuesta;
     }
@@ -142,12 +225,12 @@ public class Negocio {
         data = data.replace("]", "");
         if(FuncionesComunes.esNumero(data)){
             if(gestion.eliminar(Integer.parseInt(data))){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "");
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "GESTION ELIMINADA CORRECTAMENTE", Gestion.getTabla());
             }else{
-                respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ELIMINAR");
+                respuesta = new Respuesta(COMANDO.MS_ERROR, "GESTION NO PUDO SER ELIMINADA", Gestion.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "Es necesario un numero");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO", Gestion.getTabla());
         }
         return respuesta;
     }
@@ -164,14 +247,14 @@ public class Negocio {
         data = data.replace("[", "");
         data = data.replace("]", "");
         if(FuncionesComunes.esNumero(data)){                       
-            Spcargo modelo = cargo.consultarPorId(Integer.parseInt(data));
+            Spcargo modelo = Cargo.consultarPorId(Integer.parseInt(data));
             if(modelo != null){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, modelo.toString());
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "CARGO ENCONTRADO", Cargo.getTabla());
             }else{
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "No se encontro cargo");
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "CARGO NO ENCONTRADO", Cargo.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "Es necesario un numero");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO", Cargo.getTabla());
         }
         return respuesta;
     }    
@@ -188,12 +271,12 @@ public class Negocio {
         if(FuncionesComunes.esNumero(data)){                       
             Spgestion modelo = Gestion.consultarPorId(Integer.parseInt(data));
             if(modelo != null){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, modelo.toString());
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "GESTION ENCONTRADA", Gestion.getTabla());
             }else{
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "No se encontro gestion");
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "GESTION NO PUDO SER ENCONTRADA", Gestion.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "Es necesario un numero");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO", Gestion.getTabla());
         }
         return respuesta;
     }    
@@ -213,19 +296,19 @@ public class Negocio {
                 String value = gestion.validarGestion(modelo);
                 if(value.length()<=0){
                     if(gestion.adicionar(modelo)){
-                        respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkgestion()));
+                        respuesta = new Respuesta(COMANDO.MS_SUCCE, "GESTION ADICIONADA CORRECTAMENTE", Gestion.getTabla());
                     }
                     else{
-                        respuesta = new Respuesta(COMANDO.MS_ERROR, "");
+                        respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ADICIONAR GESTION", Gestion.getTabla());
                     }                                
                 }else{
-                    respuesta = new Respuesta(COMANDO.MS_VALID, value);
+                    respuesta = new Respuesta(COMANDO.MS_VALID, value, Gestion.getTabla());
                 }
             }else{
-                respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+                respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA", Gestion.getTabla());
             }        
         }else{
-            respuesta = new Respuesta(COMANDO.MS_ERROR, res);
+            respuesta = new Respuesta(COMANDO.MS_ERROR, res, Gestion.getTabla());
         }
         return respuesta;
     }
@@ -242,17 +325,18 @@ public class Negocio {
         if(modelo != null){
             String value = ot.validarOrdenTrabajo(modelo);
             if(value.length()<=0){
+                modelo.setData(modelo.getCodigo()+"-"+modelo.getSpgestion().getCodigo());
                 if(ot.adicionar(modelo)){
-                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkordentrabajo()));
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, "ORDEN DE TRABAJO ADICIONADA CORRECTAMENTE", OrdenTrabajo.getTabla());
                 }
                 else{
-                    respuesta = new Respuesta(COMANDO.MS_ERROR, "");
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ADICIONAR ORDEN DE TRABAJO", OrdenTrabajo.getTabla());
                 }                                
             }else{
-                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+                respuesta = new Respuesta(COMANDO.MS_VALID, value, OrdenTrabajo.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA", OrdenTrabajo.getTabla());
         }
         
         return respuesta;
@@ -270,17 +354,18 @@ public class Negocio {
         if(modelo != null){
             String value = ot.validarOrdenTrabajo(modelo);
             if(value.length()<=0){
+                modelo.setData(modelo.getCodigo()+"-"+modelo.getSpgestion().getCodigo());
                 if(ot.actualizar(modelo)){
-                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkordentrabajo()));
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, "ORDEN DE TRABAJO MODIFICADA CORRECTAMENTE", OrdenTrabajo.getTabla());
                 }
                 else{
-                    respuesta = new Respuesta(COMANDO.MS_ERROR, "");
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO MODIFICAR ORDEN DE TRABAJO", OrdenTrabajo.getTabla());
                 }                                
             }else{
-                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+                respuesta = new Respuesta(COMANDO.MS_VALID, value, OrdenTrabajo.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA", OrdenTrabajo.getTabla());
         }
         
         return respuesta;
@@ -298,12 +383,12 @@ public class Negocio {
         if(FuncionesComunes.esNumero(data)){
             Spordentrabajo modelo = OrdenTrabajo.consultarPorId(Integer.parseInt(data));
             if(modelo != null){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, modelo.toString());
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "ORDEN DE TRABAJO ENCONTRADA", OrdenTrabajo.getTabla());
             }else{
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "No se encontro Orden de Trabajo");
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "NO SE PUDO ENCONTRAR ORDEN DE TRABAJO", OrdenTrabajo.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "Es necesario un numero");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO", OrdenTrabajo.getTabla());
         }
         return respuesta;
     }
@@ -321,12 +406,12 @@ public class Negocio {
         data = data.replace("]", "");
         if(FuncionesComunes.esNumero(data)){
             if(ot.eliminar(Integer.parseInt(data))){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "OT ELIMINADA CORRECTAMENTE");
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "ORDEN DE TRABAJO ELIMINADA CORRECTAMENTE", OrdenTrabajo.getTabla());
             }else{
-                respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ELIMINAR");
+                respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ELIMINAR ORDEN DE TRABAJO", OrdenTrabajo.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "Es necesario un numero");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO", OrdenTrabajo.getTabla());
         }
         return respuesta;
     }
@@ -344,16 +429,16 @@ public class Negocio {
             String value = actividad.validarActividad(modelo);
             if(value.length()<=0){
                 if(actividad.adicionar(modelo)){
-                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkactividad()));
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, "ACTIVIDAD ADICIONADA CORRECTAMENTE", Actividad.getTabla());
                 }
                 else{
-                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ADICIONAR ACTIVIDAD");
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ADICIONAR ACTIVIDAD", Actividad.getTabla());
                 }                                
             }else{
-                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+                respuesta = new Respuesta(COMANDO.MS_VALID, value, Actividad.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA", Actividad.getTabla());
         }
         
         return respuesta;
@@ -371,12 +456,12 @@ public class Negocio {
         data = data.replace("]", "");
         if(FuncionesComunes.esNumero(data)){
             if(actividad.eliminar(Integer.parseInt(data))){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "ACTIVIDAD ELIMINADA CORRECTAMENTE");
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "ACTIVIDAD ELIMINADA CORRECTAMENTE", Actividad.getTabla());
             }else{
-                respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ELIMINAR");
+                respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ELIMINAR ACTIVIDAD", Actividad.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "Es necesario un numero");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO", Actividad.getTabla());
         }
         return respuesta;
     }
@@ -394,16 +479,16 @@ public class Negocio {
             String value = actividad.validarActividad(modelo);
             if(value.length()<=0){
                 if(actividad.actualizar(modelo)){
-                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkactividad()));
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, "ACTIVIDAD MODIFICADA CORRECTAMENTE", Actividad.getTabla());
                 }
                 else{
-                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ACTUALIZAR ACTIVIDAD");
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ACTUALIZAR ACTIVIDAD", Actividad.getTabla());
                 }                                
             }else{
-                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+                respuesta = new Respuesta(COMANDO.MS_VALID, value, Actividad.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA", Actividad.getTabla());
         }
         
         return respuesta;
@@ -421,12 +506,12 @@ public class Negocio {
         if(FuncionesComunes.esNumero(data)){
             Spactividad modelo = Actividad.consultarPorId(Integer.parseInt(data));
             if(modelo != null){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, modelo.toString());
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "ACTIVIDAD ENCONTRADA", Actividad.getTabla());
             }else{
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "NO SE ENCONTRO ACTIVIDAD");
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "NO SE ENCONTRO ACTIVIDAD", Actividad.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO", Actividad.getTabla());
         }
         return respuesta;
     }
@@ -444,16 +529,16 @@ public class Negocio {
             String value = poligono.validarPoligono(modelo);
             if(value.length()<=0){
                 if(poligono.adicionar(modelo)){
-                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkpoligono()));
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, "POLIGONO ADICIONADO CORRECTAMENTE", Poligono.getTabla());
                 }
                 else{
-                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ADICIONAR POLIGONO");
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ADICIONAR POLIGONO", Poligono.getTabla());
                 }                                
             }else{
-                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+                respuesta = new Respuesta(COMANDO.MS_VALID, value, Poligono.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA", Poligono.getTabla());
         }
         
         return respuesta;
@@ -471,12 +556,12 @@ public class Negocio {
         data = data.replace("]", "");
         if(FuncionesComunes.esNumero(data)){
             if(poligono.eliminar(Integer.parseInt(data))){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "POLIGONO ELIMINADO CORRECTAMENTE");
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "POLIGONO ELIMINADO CORRECTAMENTE", Poligono.getTabla());
             }else{
-                respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ELIMINAR");
+                respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ELIMINAR POLIGONO", Poligono.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "Es necesario un numero");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO", Poligono.getTabla());
         }
         return respuesta;
     }
@@ -494,16 +579,16 @@ public class Negocio {
             String value = poligono.validarPoligono(modelo);
             if(value.length()<=0){
                 if(poligono.actualizar(modelo)){
-                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkpoligono()));
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, "POLIGONO MODIFICADO CORRECTAMENTE", Poligono.getTabla());
                 }
                 else{
-                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ACTUALIZAR POLIGONO");
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ACTUALIZAR POLIGONO", Poligono.getTabla());
                 }                                
             }else{
-                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+                respuesta = new Respuesta(COMANDO.MS_VALID, value, Poligono.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA", Poligono.getTabla());
         }
         
         return respuesta;
@@ -521,12 +606,12 @@ public class Negocio {
         if(FuncionesComunes.esNumero(data)){
             Sppoligono modelo = Poligono.consultarPorId(Integer.parseInt(data));
             if(modelo != null){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, modelo.toString());
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "POLIGONO ENCONTRADO", Poligono.getTabla());
             }else{
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "NO SE ENCONTRO ACTIVIDAD");
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "NO SE ENCONTRO POLIGONO", Poligono.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO", Poligono.getTabla());
         }
         return respuesta;
     }
@@ -542,18 +627,19 @@ public class Negocio {
         Spitemobra modelo = io.getParser(data);
         if(modelo != null){
             String value = io.validarItemObra(modelo);
-            if(value.length()<=0){
+            if(value.length()<=0){                
+                modelo.setCodigo(modelo.getSppoligono().getCodigo().trim() + "-" + modelo.getSpactividad().getCodigo().trim());
                 if(io.adicionar(modelo)){
-                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkitemobra()));
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, "ITEM OBRA ADICIONADO CORRECTAMENTE", ItemObra.getTabla());
                 }
                 else{
-                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ADICIONAR");
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ADICIONAR ITEM OBRA", ItemObra.getTabla());
                 }                                
             }else{
-                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+                respuesta = new Respuesta(COMANDO.MS_VALID, value, ItemObra.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA", ItemObra.getTabla());
         }
         
         return respuesta;
@@ -571,17 +657,18 @@ public class Negocio {
         if(modelo != null){
             String value = io.validarItemObra(modelo);
             if(value.length()<=0){
+                modelo.setCodigo(modelo.getSppoligono().getCodigo().trim() + "-" + modelo.getSpactividad().getCodigo().trim());
                 if(io.actualizar(modelo)){
-                    respuesta = new Respuesta(COMANDO.MS_SUCCE, String.valueOf(modelo.getPkitemobra()));
+                    respuesta = new Respuesta(COMANDO.MS_SUCCE, "ITEM OBRA MODIFICADO CORRECTAMENTE", ItemObra.getTabla());
                 }
                 else{
-                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ACTUALIZAR ITEM OBRA");
+                    respuesta = new Respuesta(COMANDO.MS_ERROR, "NO SE PUDO ACTUALIZAR ITEM OBRA", ItemObra.getTabla());
                 }                                
             }else{
-                respuesta = new Respuesta(COMANDO.MS_VALID, value);
+                respuesta = new Respuesta(COMANDO.MS_VALID, value, ItemObra.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ATRIBUTOS DISTINTOS A TABLA", ItemObra.getTabla());
         }
         
         return respuesta;
@@ -599,12 +686,12 @@ public class Negocio {
         if(FuncionesComunes.esNumero(data)){
             Spitemobra modelo = ItemObra.consultarPorId(Integer.parseInt(data));
             if(modelo != null){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, modelo.toString());
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "ITEM OBRA ENCONTRADO", ItemObra.getTabla());
             }else{
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "NO SE ENCONTRO ITEM OBRA");
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "NO SE ENCONTRO ITEM OBRA", ItemObra.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO", ItemObra.getTabla());
         }
         return respuesta;
     }
@@ -622,14 +709,13 @@ public class Negocio {
         data = data.replace("]", "");
         if(FuncionesComunes.esNumero(data)){
             if(io.eliminar(Integer.parseInt(data))){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "ITEM OBRA ELIMINADA CORRECTAMENTE");
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, "ITEM OBRA ELIMINADA CORRECTAMENTE", ItemObra.getTabla());
             }else{
-                respuesta = new Respuesta(COMANDO.MS_ERROR, "ITEM OBRA NO SE PUDO ELIMINAR");
+                respuesta = new Respuesta(COMANDO.MS_ERROR, "ITEM OBRA NO SE PUDO ELIMINAR", ItemObra.getTabla());
             }
         }else{
-            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO");
+            respuesta = new Respuesta(COMANDO.MS_VALID, "ES NECESARIO UN NUMERO", ItemObra.getTabla());
         }
         return respuesta;
-    }
-    
+    }    
 }

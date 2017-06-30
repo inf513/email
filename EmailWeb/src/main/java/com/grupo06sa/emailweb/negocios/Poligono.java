@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.grupo06sa.emailweb.negocios;
 
-import com.grupo06sa.emailweb.modelos.Spactividad;
 import com.grupo06sa.emailweb.modelos.Spordentrabajo;
 import com.grupo06sa.emailweb.modelos.Sppoligono;
+import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -34,7 +28,11 @@ public class Poligono {
         }
         if(poligono.getDescripcion().length() > 50){
             data += "Descripcion de poligono maximo 50 caracteres";
-        }        
+        }
+        if(poligono.getSpordentrabajo() == null){
+            data += "Orden de trabajo no encontrada";
+        }
+        
         return data;
     }
     /**
@@ -155,4 +153,22 @@ public class Poligono {
         }
         return poligono;
     }
+    public static String getTabla(){
+        return "POLIGONOS";
+    }
+    public static List<Sppoligono> listar(){
+        List<Sppoligono> poligonos = null;
+        try {
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            Session session = factory.openSession();
+            Transaction tx = session.beginTransaction();
+            poligonos = (List<Sppoligono>) session.createQuery("SELECT p FROM Sppoligono p").list();
+            tx.commit();
+            session.close();
+        } catch (HibernateException e) {
+            Throwable cause = e.getCause();
+            System.out.println("Error [Poligono.listar]: " + cause.getMessage());
+        }
+        return poligonos;
+    }    
 }

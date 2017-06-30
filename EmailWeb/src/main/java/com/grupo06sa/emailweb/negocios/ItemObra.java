@@ -5,6 +5,7 @@ import com.grupo06sa.emailweb.modelos.Spitemobra;
 import com.grupo06sa.emailweb.modelos.Spordentrabajo;
 import com.grupo06sa.emailweb.modelos.Sppoligono;
 import java.math.BigDecimal;
+import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,20 +26,17 @@ public class ItemObra {
      */
     public String validarItemObra(Spitemobra io){
         String data = "";
-        if(io.getCodigo().length() > 6){
-            data += "Codigo de Item obra maximo 6 caracteres ";
-        }
         if(io.getDescripcion().length() > 50){
-            data += "Descripcion maxima 50 caracteres ";
+            data += "Descripcion maxima 50 caracteres </br> ";
         }
         if(io.getSpactividad() == null){
-            data += "Actividad no encontrada";
+            data += "Actividad no encontrada </br> ";
         }
         if(io.getSppoligono() == null){
-            data += "Poligono no encontrado";
+            data += "Poligono no encontrado </br> ";
         }
         if(io.getSpordentrabajo() == null){
-            data += "Orden de trabajo no encontrada";
+            data += "Orden de trabajo no encontrada </br> ";
         }
         return data;
     }
@@ -68,8 +66,7 @@ public class ItemObra {
                     if(FuncionesComunes.esNumero(datos[3].trim())){ // poligono
                         Sppoligono poligono = Poligono.consultarPorId(Integer.parseInt(datos[3].trim()));
                         io.setSppoligono(poligono);
-                        if(datos[4].length() > 0){ // descripcion
-                            io.setCodigo(poligono.getCodigo().trim() + "-" + actividad.getCodigo().trim());
+                        if(datos[4].length() > 0){ // descripcion                            
                             io.setDescripcion(datos[4]);
                             if(FuncionesComunes.esNumero(datos[5])){
                                 io.setAreatrab(new BigDecimal(datos[5].trim()));
@@ -173,4 +170,22 @@ public class ItemObra {
         }
         return io;
     }    
+    public static String getTabla(){
+        return "ITEM OBRAS";
+    }
+    public static List<Spitemobra> listar(){
+        List<Spitemobra> lista = null;
+        try {
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            Session session = factory.openSession();
+            Transaction tx = session.beginTransaction();
+            lista = (List<Spitemobra>) session.createQuery("SELECT p FROM Spitemobra p").list();
+            tx.commit();
+            session.close();
+        } catch (HibernateException e) {
+            Throwable cause = e.getCause();
+            System.out.println("Error [ItemObra.listar]: " + cause.getMessage());
+        }
+        return lista;
+    }   
 }

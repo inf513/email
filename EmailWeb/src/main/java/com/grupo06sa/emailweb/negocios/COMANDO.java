@@ -15,6 +15,8 @@ public class COMANDO {
     public final static String CM_UPD = "UPD";
     public final static String CM_DEL = "DEL";
     public final static String CM_CON = "CON";// consultar
+    public final static String CM_LST = "LST";// LISTAR
+    public final static String CM_AYU = "AYUDA";// AYUDA
     
     public final static String TB_CARGO = "CARGO";
     public final static String TB_GESTION = "GESTION";
@@ -49,5 +51,11 @@ public class COMANDO {
      */
     public final static String MS_COMAN = "COMANDO NO VALIDO";
     
+    /**
+     * Mensaje cuando no se encuentra una tabla 
+     */
     public final static String MS_TABLA = "TABLA NO ENCONTRADA";
+    
+    public final static String MS_LST = "ENVIANDO LISTADO";
+
 }

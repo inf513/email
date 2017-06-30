@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.grupo06sa.emailweb.negocios;
 
 import com.grupo06sa.emailweb.modelos.Spactividad;
 import com.grupo06sa.emailweb.modelos.Spordentrabajo;
+import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,11 +24,15 @@ public class Actividad {
     public String validarActividad(Spactividad actividad){
         String data = "";
         if(actividad.getCodigo().length() > 2){
-            data += "Codigo de actividad maximo 2 caracteres";
+            data += "Codigo de actividad maximo 2 caracteres </br>";
         }
         if(actividad.getDescripcion().length() > 50){
-            data += "Descripcion de actividad maximo 50 caracteres";
+            data += "Descripcion de actividad maximo 50 caracteres </br>";
         }        
+        if(actividad.getSpordentrabajo() == null){
+            data += "Orden de trabajo no valida </br>";
+        }
+        
         return data;
     }
     /**
@@ -153,5 +152,23 @@ public class Actividad {
             System.out.println("Error [Actividad.consultarPorId]: " + cause.getMessage());
         }
         return actividad;
+    }
+    public static String getTabla(){
+        return "ACTIVIDADES";
+    }
+    public static List<Spactividad> listar(){
+        List<Spactividad> lista = null;
+        try {
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            Session session = factory.openSession();
+            Transaction tx = session.beginTransaction();
+            lista = (List<Spactividad>) session.createQuery("SELECT p FROM Spactividad p").list();
+            tx.commit();
+            session.close();
+        } catch (HibernateException e) {
+            Throwable cause = e.getCause();
+            System.out.println("Error [Actividad.listar]: " + cause.getMessage());
+        }
+        return lista;
     }
 }

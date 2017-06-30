@@ -1,12 +1,6 @@
-/*
- * dfffffffffffffffffffffffffffffffffff
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.grupo06sa.emailweb.negocios;
 import  com.grupo06sa.emailweb.modelos.*;
+import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -141,5 +135,27 @@ public class Cargo{
             System.out.println("Error [Cargo.consultarPorId]: " + cause.getMessage());            
         }
         return cargo;
+    }
+    /**
+     * Lista los cargos
+     * @return 
+     */
+    public static List<Spcargo> listar(){
+        List<Spcargo> cargos = null;
+        try {
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            Session session = factory.openSession();
+            Transaction tx = session.beginTransaction();
+            cargos = (List<Spcargo>) session.createQuery("SELECT p FROM Spcargo p").list();
+            tx.commit();
+            session.close();
+        } catch (HibernateException e) {
+            Throwable cause = e.getCause();
+            System.out.println("Error [Cargo.listar]: " + cause.getMessage());
+        }
+        return cargos;
+    }
+    public static String getTabla(){
+        return "CARGOS";
     }
 }

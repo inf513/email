@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>AYUDA DE CODIGOS</title>
+	 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	</head>
+	<body style="margin: 0; padding: 0;">
+		<table align="center" border="1" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">
+			<tr>
+				<td align="center" bgcolor="#FFFF00" style="padding: 40px 0 30px 0; color:#0B0B61">
+				 	<img src="./img/unnamed.jpg" alt="SOCIEDAD DE SERVICIOS OPTIMA S.A." width="100" height="100"/>
+					<h2>SOCIEDAD DE SERVICIOS OPTIMA S.A.</h2>
+				</td>
+			</tr>
+			<tr>
+				<td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+					<table border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td style="color: #153643; font-family: Arial, sans-serif; 	font-size: 24px; ">
+								<center>
+									<b>AYUDA PARA REALIZAR PETICIONES</b>
+								</center>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding: 20px 0 0 0;">
+								Configuracion de peticion
+								<b>COMANDO|TABLA|[data1,data2,...]</b>
+							</td>
+						</tr>
+
+						<tr>
+							<td style="padding: 20px 0 0 0;">
+								<pre><b>lista de Comandos:</b></pre>
+								<pre>ADD : Comando para registrar una peticion.</pre>
+								<pre>CON : Comando para buscar un registro.</pre>
+								<pre>LST : Comando para listar los registros.</pre>
+								<pre>DEL : Comando para eliminar un registro.</pre>
+								<pre>UPD : Comando para actualizar un registro.</pre>
+							</td>
+						</tr>
+						
+						<tr>
+							<td style="padding: 20px 0 0 0;">
+								<pre><b>Peticiones comunes</b></pre>
+								<pre><b>DEL|TABLA|[1]</b> Elimina el registro con el [ID] en el sistema.</pre>
+								<pre><b>CON|TABLA|[1]</b> Busca un registro con el [ID] en el sistema.</pre>
+								<pre><b>LST|TABLA|[] </b>  Lista los registros del sistema.</pre>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<pre><b>PETICIONES DE CARGO CMD|CARGO|[idCargo,codigo,nombre]</b></pre>
+								<pre><b>ADD|CARGO|[0,001,AYUDANTE]</b> Registra un cargo en el sistema.</pre>
+								<pre><b>UPD|CARGO|[1,001,AYUDANTE]</b> Modifica un cargo en el sistema.</pre>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<pre><b>PETICIONES DE GESTION CMD|GESTION|[idGestion,codigo,fechaInicial,fechaFinal]</b></pre>
+								<pre><b>ADD|GESTION|[0,19,2019-01-01,2019-12-31]</b> Registra una gestion en el sistema.</pre>
+								<pre><b>UPD|GESTION|[1,19,2019-01-01,2019-12-31]</b> Modifica una gestion en el sistema.</pre>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<pre><b>PETICIONES DE ORDEN DE TRABAJO CMD|ORDEN|[idOrden,idGestion,codigo,nombre,supervisor,area]</b></pre>
+								<pre><b>ADD|ORDEN|[0,1,001,SAN IGNACIO,NOMBRE SUPERV,1000]</b> Registra una Orden de Trabajo en el sistema.</pre>
+								<pre><b>UPD|ORDEN|[1,1,001,SAN IGNACIO,NOMBRE SUPERV,1000]</b> Modifica una orden de trabajo en el sistema.</pre>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<pre><b>PETICIONES DE ITEM OBRAS CMD|ITEMOBRA|[idItemObra,idOrden,idActividad,idPoligono,nombre,area,rend.]</b></pre>
+								<pre><b>ADD|ITEMOBRA|[0,1,1,1,BASUREO - POLIGONO A01,JUAN CAMPOS,1000,1]</b> Registra un item obra en el sistema.</pre>
+								<pre><b>UPD|ITEMOBRA|[1,1,1,1,BASUREO - POLIGONO A01,JUAN CAMPOS,1000,1]</b> Modifica un item obra trabajo en el sistema.</pre>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<pre><b>PETICIONES DE ACTIVIDAD CMD|ACTIVIDAD|[idActividad,idOrden,codigo,nombre]</b></pre>
+								<pre><b>ADD|ACTIVIDAD|[0,1,01,DESMONTE]</b> Registra una actividad en el sistema.</pre>
+								<pre><b>UPD|ACTIVIDAD|[1,1,01,DESMONTE]</b> Modifica una actividad en el sistema.</pre>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<pre><b>PETICIONES DE POLIGONO CMD|POLIGONO|[idPoligono,idOrden,codigo,nombre]</b></pre>
+								<pre><b>ADD|POLIGONO|[0,1,A01,POLIGONO A01]</b> Registra un poligono en el sistema.</pre>
+								<pre><b>UPD|POLIGONO|[1,1,A02,POLIGONO A02]</b> Modifica una poligono en el sistema.</pre>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td bgcolor="#0B0B61" style="padding: 30px 30px 30px 30px; color: white">
+					<center>
+						Km 7. Carretera a Cotoca (Zona Guapilo) Tel:(+591)34 7740 - 34 77300
+					</center>				
+					<center>
+						Email: optima@cotas.com.bo
+					</center>
+				</td>
+			</tr>				
+		</table>
+	</body>
+</html>

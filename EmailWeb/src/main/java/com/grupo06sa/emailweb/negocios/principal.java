@@ -16,16 +16,17 @@ public class principal {
         try {
             Analizador a = new Analizador();
             
-            //String trama = "UPD|GESTION|[2,18,2018-01-01,2018-12-31]";
-            //String trama = "UPD|CARGO|[2,003,OPERADOR]";
-            //String trama = "ADD|ORDEN|[1,2,001,NOMBRE DE OT,JUAN PERES,10]";
-            //String trama = "UPD|ACTIVIDAD|[1,1,01,BASUREO]";
-            //String trama = "ADD|POLIGONO|[1,1,A03,POLIGONO - A03]";
-            //ID_IO|IDordentrabajo|IDctividad|IDpoligono|descripcion|areatrab|rendimiento
-            //String trama = "ADD|ITEMOBRA|[0,1,1,1,CADENEO POLIGONO A1,1000,0.5]";
-            String trama = "CON|ITEMOBRA|[1]";
+            //String trama = "UPD|GESTION|[2,18,2018-01-01,2018-12-31]"; XXX
+            //String trama = "UPD|CARGO|[2,003,OPERADOR]"; XXX
+            //String trama = "ADD|ORDEN|[1,2,001,NOMBRE DE OT,JUAN PERES,10]"; xxx
+            //String trama = "UPD|ACTIVIDAD|[1,1,01,BASUREO]"; xxxx
+            //String trama = "ADD|POLIGONO|[0,1,A04,POLIGONO - A04]";
+            //ID_IO|IDordentrabajo|IDctividad|IDpoligono|descripcion|areatrab|rendimiento xx
+            //String trama = "ADD|ITEMOBRA|[0,1,2,2,CADENEO POLIGONO A4,1000,0.5]";
+            String trama = "LST|ITEMOBRA|[]";
             Respuesta r = a.analizarTrama(trama);
-            System.out.println(r.toString());
+            System.out.println(r.getCode());
+            System.out.println(r.getDescripcion());
             System.exit(0);
         } catch (Exception e) {
             System.out.println("err : " + e.getMessage());

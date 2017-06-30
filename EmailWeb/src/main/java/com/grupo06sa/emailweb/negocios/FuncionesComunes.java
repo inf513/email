@@ -6,9 +6,11 @@
 
 package com.grupo06sa.emailweb.negocios;
 
+import com.grupo06sa.emailweb.modelos.Spcargo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 
@@ -55,5 +57,5 @@ public class FuncionesComunes {
         }catch(ParseException e){
             return new Date();
         }
-    }
+    }    
 }

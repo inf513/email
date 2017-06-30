@@ -18,14 +18,31 @@ public class Analizador {
             if(this.validarTrama(trama)){
                 respuesta = this.ejecutarComando(this.getComando(trama), this.getTabla(trama), this.getData(trama));
             }else{
-                respuesta = new Respuesta(COMANDO.MS_TRVAL, "parametros no coinciden");
+                if(this.isTramaAyuda(trama)){                    
+                    respuesta = new Respuesta(COMANDO.CM_AYU, "AYUDA", "");
+                }else{
+                    respuesta = new Respuesta(COMANDO.MS_TRVAL, "PARAMETROS DE TRAMA NO COINCIDEN", "");
+                }
+                
             }
         } catch (Exception e) {
             System.out.println("[Parser.analizarTrama] " + e.getMessage());
         }
         return respuesta;
     }
-    
+    /**
+     * Verifica si es una trama para pedir ayuda
+     * @param trama trama que llega
+     * @return 
+     */
+    private boolean isTramaAyuda(String trama){
+        String[] data = trama.split(separador);
+        if((data.length==1)){
+            return (data[0].trim().equals(COMANDO.CM_AYU));
+        }else{
+            return false;
+        }
+    }
     private Respuesta ejecutarComando(String comando, String tabla, String data){
         Respuesta respuesta = null;
         switch(comando){
@@ -41,8 +58,11 @@ public class Analizador {
             case COMANDO.CM_CON:
                 respuesta = this.ejecutarComandoCON(tabla, data);
                 break;
+            case COMANDO.CM_LST:
+                respuesta = this.ejecutarComandoLST(tabla, data);
+                break;                
             default:
-                respuesta = new Respuesta(COMANDO.MS_COMAN, "");
+                respuesta = new Respuesta(COMANDO.MS_COMAN, "COMANDO NO RECONOCIDO", "");
                 break;            
         }
      
@@ -76,11 +96,45 @@ public class Analizador {
                 respuesta = Negocio.adicionarItemObra(data);
                 break;
             default:
-                respuesta = new Respuesta(COMANDO.MS_TABLA,"");
+                respuesta = new Respuesta(COMANDO.MS_TABLA,"TABLA NO RECONOCIDA","");
                 break;
         }
        return respuesta;
     }
+    /**
+     * Metood que lista las tablas
+     * @param tabla
+     * @param data
+     * @return 
+     */
+    private Respuesta ejecutarComandoLST(String tabla, String data){
+        Respuesta respuesta = null;
+        switch(tabla){
+            case COMANDO.TB_CARGO:
+                respuesta = Negocio.listarCargo();
+                break;
+            case COMANDO.TB_GESTION:
+                respuesta = Negocio.listarGestion();
+                break;
+            case COMANDO.TB_ORDEN:
+                respuesta = Negocio.listarOrdenTrabajo();
+                break;
+            case COMANDO.TB_ACTIVIDAD:
+                respuesta = Negocio.listarActividad();
+                break;
+            case COMANDO.TB_POLIGONO:
+                respuesta = Negocio.listarPoligono();
+                break;
+            case COMANDO.TB_ITEMOBRA:
+                respuesta = Negocio.listarItemObra();
+                break;
+            default:
+                respuesta = new Respuesta(COMANDO.MS_TABLA,"TABLA NO ENCONTRADA", "");
+                break;
+        }
+       return respuesta;
+    }
+
     /**
      * Ejecuta el comando Eliminar en la base de datos
      * @param tabla nombre de la tabla donde se ejecutara el comando
@@ -109,7 +163,7 @@ public class Analizador {
                 respuesta = Negocio.eliminarItemObra(data);
                 break;                
             default:
-                respuesta = new Respuesta(COMANDO.MS_TABLA,"Tabla no encontrada");
+                respuesta = new Respuesta(COMANDO.MS_TABLA,"TABLA NO RECONOCIDA", "");
                 break;
         }
        return respuesta;
@@ -142,7 +196,7 @@ public class Analizador {
                 respuesta = Negocio.actualizarItemObra(data);
                 break;                
             default:
-                respuesta = new Respuesta(COMANDO.MS_TABLA,"Tabla no encontrada");
+                respuesta = new Respuesta(COMANDO.MS_TABLA,"TABLA NO RECONOCIDA", "");
                 break;
         }
        return respuesta;
@@ -175,7 +229,7 @@ public class Analizador {
                 respuesta = Negocio.consultarItemObra(data);
                 break;                
             default:
-                respuesta = new Respuesta(COMANDO.MS_TABLA,"Tabla no encontrada");
+                respuesta = new Respuesta(COMANDO.MS_TABLA,"TABLA NO RECONOCIDA", "");
                 break;
         }
        return respuesta;
