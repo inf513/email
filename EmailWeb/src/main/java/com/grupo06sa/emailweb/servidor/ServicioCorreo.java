@@ -15,11 +15,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.mail.search.FlagTerm;
 /**
  * 
@@ -67,6 +67,37 @@ public class ServicioCorreo {
             System.out.println("[ServicioCorreo.SendMail] " + e.getMessage());
         }
     }
+    private void SendMailMultiParte(Mensaje msg){
+        try {
+                Authenticator auth = new autentificadorSMTP();
+                Session session = Session.getInstance(this.propiedades, auth);
+
+                MimeMessage mime = new MimeMessage(session);
+                mime.setSubject(msg.getAsunto());
+                mime.setFrom(new InternetAddress(usuario + "@mail.ficct.uagrm.edu.bo"));
+                mime.addRecipient(Message.RecipientType.TO, new InternetAddress(msg.getEmail()));
+                
+                Multipart multiparte = new MimeMultipart("related");
+                
+                // se adiciona el mensage
+                BodyPart body = new MimeBodyPart();
+                body.setContent(msg.getContenido(), "text/html");
+                
+                //se adiciona la imagen
+                MimeBodyPart imagen = new MimeBodyPart();
+                imagen.attachFile(Mensaje.logo1);
+                imagen.setHeader("Content-ID", "<logo1>");
+                                
+                multiparte.addBodyPart(body);
+                multiparte.addBodyPart(imagen);
+                
+                mime.setContent(multiparte);
+                
+                Transport.send(mime);
+        } catch (Exception e) {
+            System.out.println("[ServicioCorreo.SendMailMultiParte] " + e.getMessage());
+        }
+    }
     
     /**
      * Metodo que responde mediante un correo electronico a las peticiones realizadas
@@ -107,6 +138,7 @@ public class ServicioCorreo {
         //System.out.println("PAGINA : " + m.getContenido());
         System.out.println("correo enviado");
         this.SendMail(m);
+        //this.SendMailMultiParte(m);
     }
     /**
      * Metodo que genera un documento html a partir de la direccion que se envia
@@ -123,7 +155,7 @@ public class ServicioCorreo {
             while((linea = br.readLine()) != null){
                 if(linea.contains(Respuesta.code_replace)){
                     if(r.getCode().equals(COMANDO.MS_LST)){
-                        linea = linea.replace(Respuesta.code_replace, r.getNombreTabla());
+                        linea = linea.replace(Respuesta.code_replace, "LISTADO DE " + r.getNombreTabla());
                     }else{
                         linea = linea.replace(Respuesta.code_replace, r.getCode());
                     }                    
@@ -195,8 +227,8 @@ public class ServicioCorreo {
     private void ReadMessage(Message msg){
         try {
             Address dfrom = msg.getFrom()[0];
-            Object ob = msg.getContent();                
-            msg.setFlag(Flags.Flag.SEEN, true);            
+            Object ob = msg.getContent();
+            msg.setFlag(Flags.Flag.SEEN, true);
             
             Mensaje msj = new Mensaje(dfrom.toString(), msg.getSubject(), ob.toString(), msg.getSentDate(),msg.getReceivedDate());
             this.procesarPeticion(msj);
@@ -223,7 +255,8 @@ public class ServicioCorreo {
             while(true){
                 this.readEmail();
                 System.out.println("iteracion de hilo nro : " + String.valueOf(iteracion));
-                Thread.sleep(70000);
+                Thread.sleep(40000);
+                iteracion = iteracion + 1;
             }            
         } catch (InterruptedException ex) {
             System.out.println("Error en hilo" + ex.getMessage());

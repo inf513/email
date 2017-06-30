@@ -111,6 +111,6 @@ public class Spitemobra  implements java.io.Serializable {
     
     @Override
     public String toString(){
-        return "[codigo : " + this.getCodigo() + ", descripcion : " + this.getDescripcion() + "]";
+        return "[id : " + this.getPkitemobra() + ", codigo : " + this.getCodigo() + ", descripcion : " + this.getDescripcion() + "]";
     }
 }

@@ -10,8 +10,7 @@ import java.util.Set;
  */
 public class Spactividad  implements java.io.Serializable {
 
-
-     private int pkactividad;
+    private int pkactividad;
      private Spordentrabajo spordentrabajo;
      private String codigo;
      private String descripcion;
@@ -72,8 +71,6 @@ public class Spactividad  implements java.io.Serializable {
 
     @Override
     public String toString(){
-        return "[codigo : " + this.getCodigo() + ", descripcion : " + this.getDescripcion() + "]";
+        return "[id : " + this.getPkactividad() + ", codigo : " + this.getCodigo() + ", descripcion : " + this.getDescripcion() + " ]";
     }
-    
-
 }

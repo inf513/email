@@ -62,8 +62,6 @@ public class Spcargo  implements java.io.Serializable {
 
     @Override
     public String toString(){
-        return "[codigo => " + this.codigo +", descripcion => " + this.descripcion +  "]";
+        return "[ id : " + this.getPkcargo() + ", codigo : " + this.codigo + ", descripcion : " + this.descripcion +  " ]";
     }
 }
-
-

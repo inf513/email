@@ -190,7 +190,7 @@ public class Spordentrabajo  implements java.io.Serializable {
 
     @Override
     public String toString(){
-        return "[ data : " + this.getData() + ", nombre : " + this.getNombre() + "]";
+        return "[ id : " + this.getPkordentrabajo() + ", data : " + this.getData() + ", nombre : " + this.getNombre() + "]";
     }
 
 

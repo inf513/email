@@ -71,7 +71,7 @@ public class Sppoligono  implements java.io.Serializable {
     }
     @Override
     public String toString(){
-        return "[codigo : " + this.getCodigo() + ", descripcion : " + this.getDescripcion() + "]";
+        return "[ id : " + this.getPkpoligono() + ", codigo : " + this.getCodigo() + ", descripcion : " + this.getDescripcion() + "]";
     }
 }
 

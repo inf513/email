@@ -242,14 +242,13 @@ public class Negocio {
      */
     public static Respuesta consultarCargo(String data){
         Respuesta respuesta = null;
-        Cargo cargo = new Cargo();
         //[1]
         data = data.replace("[", "");
         data = data.replace("]", "");
         if(FuncionesComunes.esNumero(data)){                       
             Spcargo modelo = Cargo.consultarPorId(Integer.parseInt(data));
-            if(modelo != null){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "CARGO ENCONTRADO", Cargo.getTabla());
+            if(modelo != null){                
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, modelo.toString(), Cargo.getTabla());
             }else{
                 respuesta = new Respuesta(COMANDO.MS_SUCCE, "CARGO NO ENCONTRADO", Cargo.getTabla());
             }
@@ -271,7 +270,7 @@ public class Negocio {
         if(FuncionesComunes.esNumero(data)){                       
             Spgestion modelo = Gestion.consultarPorId(Integer.parseInt(data));
             if(modelo != null){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "GESTION ENCONTRADA", Gestion.getTabla());
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, modelo.toString(), Gestion.getTabla());
             }else{
                 respuesta = new Respuesta(COMANDO.MS_SUCCE, "GESTION NO PUDO SER ENCONTRADA", Gestion.getTabla());
             }
@@ -383,7 +382,7 @@ public class Negocio {
         if(FuncionesComunes.esNumero(data)){
             Spordentrabajo modelo = OrdenTrabajo.consultarPorId(Integer.parseInt(data));
             if(modelo != null){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "ORDEN DE TRABAJO ENCONTRADA", OrdenTrabajo.getTabla());
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, modelo.toString(), OrdenTrabajo.getTabla());
             }else{
                 respuesta = new Respuesta(COMANDO.MS_SUCCE, "NO SE PUDO ENCONTRAR ORDEN DE TRABAJO", OrdenTrabajo.getTabla());
             }
@@ -506,7 +505,7 @@ public class Negocio {
         if(FuncionesComunes.esNumero(data)){
             Spactividad modelo = Actividad.consultarPorId(Integer.parseInt(data));
             if(modelo != null){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "ACTIVIDAD ENCONTRADA", Actividad.getTabla());
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, modelo.toString(), Actividad.getTabla());
             }else{
                 respuesta = new Respuesta(COMANDO.MS_SUCCE, "NO SE ENCONTRO ACTIVIDAD", Actividad.getTabla());
             }
@@ -606,7 +605,7 @@ public class Negocio {
         if(FuncionesComunes.esNumero(data)){
             Sppoligono modelo = Poligono.consultarPorId(Integer.parseInt(data));
             if(modelo != null){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "POLIGONO ENCONTRADO", Poligono.getTabla());
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, modelo.toString(), Poligono.getTabla());
             }else{
                 respuesta = new Respuesta(COMANDO.MS_SUCCE, "NO SE ENCONTRO POLIGONO", Poligono.getTabla());
             }
@@ -686,7 +685,7 @@ public class Negocio {
         if(FuncionesComunes.esNumero(data)){
             Spitemobra modelo = ItemObra.consultarPorId(Integer.parseInt(data));
             if(modelo != null){
-                respuesta = new Respuesta(COMANDO.MS_SUCCE, "ITEM OBRA ENCONTRADO", ItemObra.getTabla());
+                respuesta = new Respuesta(COMANDO.MS_SUCCE, modelo.toString(), ItemObra.getTabla());
             }else{
                 respuesta = new Respuesta(COMANDO.MS_SUCCE, "NO SE ENCONTRO ITEM OBRA", ItemObra.getTabla());
             }

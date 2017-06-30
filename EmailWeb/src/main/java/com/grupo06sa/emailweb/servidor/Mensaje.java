@@ -16,6 +16,7 @@ public class Mensaje {
     public static final String mailAyuda = "D:\\Repositorio\\email\\EmailWeb\\src\\main\\resources\\ayuda.html";
     public static final String mailList = "D:\\Repositorio\\email\\EmailWeb\\src\\main\\resources\\list.html";
     public static final String mailEstado = "D:\\Repositorio\\email\\EmailWeb\\src\\main\\resources\\mail.html";    
+    public static final String logo1 = "D:\\Repositorio\\email\\EmailWeb\\src\\main\\resources\\img\\unnamed.jpg";
     public Mensaje(String mail, String asunto, String contenido, Date fecha_envio, Date fecha_recibido){
         this.contenido = contenido;
         this.email = mail;

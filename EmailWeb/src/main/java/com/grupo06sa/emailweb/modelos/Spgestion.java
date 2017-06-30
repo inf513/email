@@ -99,7 +99,7 @@ public class Spgestion  implements java.io.Serializable {
 
     @Override
     public String toString(){
-        return "[codigo => " + this.codigo +", fechaIni => " + this.fechaini +  ", fechaFin => " + this.fechafin + "]";
+        return "[id : " + this.getPkgestion() + ", codigo : " + this.codigo +", fechaIni : " + this.fechaini +  ", fechaFin : " + this.fechafin + "]";
     }
 
 }
