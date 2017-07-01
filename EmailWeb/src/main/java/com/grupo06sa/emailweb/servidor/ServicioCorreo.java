@@ -43,7 +43,8 @@ public class ServicioCorreo {
         propiedades = new Properties();
         propiedades.put("mail.smtp.user", usuario);
         propiedades.put("mail.smtp.password", password);
-        propiedades.put("mail.smtp.host", "mail.ficct.uagrm.edu.bo");
+        //propiedades.put("mail.smtp.host", "mail.ficct.uagrm.edu.bo");
+        propiedades.put("mail.smtp.host", "200.87.51.3");
         propiedades.put("mail.smtp.port", "25");
     }
     /**
@@ -184,7 +185,8 @@ public class ServicioCorreo {
      */
     public void readEmail(){
         // Obtenemos las propiedades del sistema
-        String popHost = "mail.ficct.uagrm.edu.bo";
+        //String popHost = "mail.ficct.uagrm.edu.bo";
+        String popHost = "200.87.51.3";
         Properties props = System.getProperties();
         // Obtener una sesión con las propiedades anteriormente definidas
         Session sesion = Session.getDefaultInstance(props,null);
@@ -255,7 +257,7 @@ public class ServicioCorreo {
             while(true){
                 this.readEmail();
                 System.out.println("iteracion de hilo nro : " + String.valueOf(iteracion));
-                Thread.sleep(30000);
+                Thread.sleep(15000);
                 iteracion = iteracion + 1;
             }            
         } catch (InterruptedException ex) {
